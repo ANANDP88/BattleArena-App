@@ -48,28 +48,33 @@ export async function POST(req) {
     } else if (text === "🎮 Tournaments") {
       await sendMessage(
         chatId,
-        "🎮 BattleArena Tournaments\n\n🔥 Free Fire\n🎯 BGMI\n\n📅 Upcoming tournaments जल्द ही यहाँ दिखाई देंगे.",
+        "🏆 BattleArena BGMI — Dussehra Special\n\n🎮 BGMI\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n\n🔥 Registration is OPEN!\n📝 Register: " + FORM_URL,
         keyboard
       );
-} else if (text === "📝 Register") {
-  await sendMessage(
-    chatId,
-    `📝 Tournament Registration
+    } else if (text === "📝 Register") {
+      await sendMessage(
+        chatId,
+        `📝 Tournament Registration
+
+🏆 BattleArena BGMI — Dussehra Special
+📅 18 October 2026
+⏰ 8:00 PM IST
+💰 Entry: FREE
 
 👉 Register here:
 ${FORM_URL}`,
-    keyboard
-  );
+        keyboard
+      );
     } else if (text === "🏆 Leaderboard") {
       await sendMessage(
         chatId,
-        "🏆 Leaderboard\n\nअभी tournaments शुरू होने बाकी हैं.\nResults और rankings यहाँ update होंगे.",
+        "🏆 Leaderboard\n\nअभी tournament शुरू नहीं हुआ है.\nResults और rankings यहाँ update होंगे.",
         keyboard
       );
     } else if (text === "🎁 Rewards") {
       await sendMessage(
         chatId,
-        "🎁 BattleArena Rewards\n\n🏅 Tournament rewards\n🎖️ Champion badges\n🎁 Special rewards\n\nDetails tournaments के साथ announce होंगे.",
+        "🎁 BattleArena Rewards\n\n🥇 1st Place — Champion Title + Champion Badge + Special Reward\n🥈 2nd Place — Runner-Up Badge + Special Reward\n🥉 3rd Place — 3rd Place Badge + Special Reward\n\n⭐ Bonus: Best Performance & Special Achievement rewards\n\n⚠️ Final rewards tournament announcement में officially confirm होंगे.",
         keyboard
       );
     } else if (text === "👕 Merchandise") {
@@ -87,7 +92,7 @@ ${FORM_URL}`,
     } else if (text === "❓ Help") {
       await sendMessage(
         chatId,
-        "❓ BattleArena Help\n\n🎮 Tournament → Upcoming matches\n📝 Register → Registration form\n🏆 Leaderboard → Results\n🎁 Rewards → Rewards information\n👕 Merchandise → BattleArena products",
+        "❓ BattleArena Help\n\n🎮 Tournament → Upcoming match\n📝 Register → Registration form\n🏆 Leaderboard → Results\n🎁 Rewards → Rewards information\n👕 Merchandise → BattleArena products",
         keyboard
       );
     } else {
