@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export const metadata = {
   title: "BattleArena",
   description: "Free Fire & BGMI Tournaments",
