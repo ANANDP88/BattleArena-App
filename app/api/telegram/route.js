@@ -51,21 +51,15 @@ export async function POST(req) {
         "🎮 BattleArena Tournaments\n\n🔥 Free Fire\n🎯 BGMI\n\n📅 Upcoming tournaments जल्द ही यहाँ दिखाई देंगे.",
         keyboard
       );
-    } else if (text === "📝 Register") {
-      await sendMessage(
-        chatId,
-        "📝 Tournament Registration\n\n👇 नीचे Register Now दबाएँ:",
-        {
-          inline_keyboard: [
-            [
-              {
-                text: "📝 Register Now",
-                url: FORM_URL,
-              },
-            ],
-          ],
-        }
-      );
+} else if (text === "📝 Register") {
+  await sendMessage(
+    chatId,
+    `📝 Tournament Registration
+
+👉 Register here:
+${FORM_URL}`,
+    keyboard
+  );
     } else if (text === "🏆 Leaderboard") {
       await sendMessage(
         chatId,
