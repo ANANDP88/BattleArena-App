@@ -38,5 +38,11 @@ export async function POST(req) {
   } catch (error) {
     console.error(error);
     return Response.json({ ok: false }, { status: 500 });
-  }
+  
+}
+export async function GET() {
+  return Response.json({
+    ok: true,
+    message: "BattleArena Telegram API is working"
+  });
 }
