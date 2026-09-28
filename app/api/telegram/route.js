@@ -14,10 +14,9 @@ export async function POST(req) {
       const parts = text.split(" ");
       const referral = parts[1] || "";
 
-      const reply =
-        referral
-          ? `🏆 Welcome to BattleArena!\n\n🎮 Referral detected: ${referral}\n\n🔥 Free Fire & BGMI tournaments coming soon!\n\n👇 Register and compete!`
-          : `🏆 Welcome to BattleArena!\n\n🎮 Free Fire & BGMI tournaments\n🔥 Free registration\n🏅 Compete & win rewards!\n\n👇 Stay tuned for upcoming tournaments!`;
+      const reply = referral
+        ? `🏆 Welcome to BattleArena!\n\n🎮 Referral detected: ${referral}\n\n🔥 Free Fire & BGMI tournaments coming soon!\n\n👇 Register and compete!`
+        : `🏆 Welcome to BattleArena!\n\n🎮 Free Fire & BGMI tournaments\n🔥 Free registration\n🏅 Compete & win rewards!\n\n👇 Stay tuned for upcoming tournaments!`;
 
       await fetch(
         `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
@@ -38,11 +37,12 @@ export async function POST(req) {
   } catch (error) {
     console.error(error);
     return Response.json({ ok: false }, { status: 500 });
-  
+  }
 }
+
 export async function GET() {
   return Response.json({
     ok: true,
-    message: "BattleArena Telegram API is working"
+    message: "BattleArena Telegram API is working",
   });
 }
