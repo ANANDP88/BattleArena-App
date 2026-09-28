@@ -1,3 +1,6 @@
+const FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLScyEVnRrzlkI4rS_hkmPOS7PGnvKOJP7IPZkEzNPLmXROxV1A/viewform?usp=sharing&ouid=115312761396073556643";
+
 async function sendMessage(chatId, text, keyboard) {
   await fetch(
     `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
@@ -51,8 +54,17 @@ export async function POST(req) {
     } else if (text === "📝 Register") {
       await sendMessage(
         chatId,
-        "📝 Tournament Registration\n\n👇 Registration form खोलने के लिए link:\nhttps://forms.gle/PNvDTVtJj3ftiuBeA",
-        keyboard
+        "📝 Tournament Registration\n\n👇 नीचे Register Now दबाएँ:",
+        {
+          inline_keyboard: [
+            [
+              {
+                text: "📝 Register Now",
+                url: FORM_URL,
+              },
+            ],
+          ],
+        }
       );
     } else if (text === "🏆 Leaderboard") {
       await sendMessage(
