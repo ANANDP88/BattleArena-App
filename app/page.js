@@ -35,31 +35,39 @@ export default function Home() {
   return (
     <main className="app">
       <section className="hero">
-        <div className="badge">🏆 BATTLEARENA</div>
+        <div className="heroImage">
+          <img
+            src="/hero-banner.jpg"
+            alt="BattleArena Gaming"
+          />
+          <div className="heroOverlay" />
+        </div>
 
-        <h1>Play. Compete. Win.</h1>
+        <div className="heroContent">
+          <div className="badge">🏆 BATTLEARENA</div>
 
-        <p>
-          Free Fire & BGMI tournaments for the BattleArena gaming community.
-        </p>
+          <h1>Play. Compete. Win.</h1>
 
-        <div className="heroButtons">
-          <a href="#tournaments" className="primaryBtn">
-            🎮 View Tournaments
-          </a>
+          <p>
+            Free Fire & BGMI tournaments for the BattleArena gaming community.
+          </p>
 
-          <a href="#referral" className="secondaryBtn">
-            🎁 Refer & Earn
-          </a>
+          <div className="heroButtons">
+            <a href="#tournaments" className="primaryBtn">
+              🎮 View Tournaments
+            </a>
+
+            <a href="#referral" className="secondaryBtn">
+              🎁 Refer & Earn
+            </a>
+          </div>
         </div>
       </section>
 
       <section id="tournaments" className="section">
         <div className="sectionTitle">
-          <div>
-            <span>COMPETE</span>
-            <h2>🏆 Upcoming Tournaments</h2>
-          </div>
+          <span>COMPETE</span>
+          <h2>🏆 Upcoming Tournaments</h2>
         </div>
 
         <div className="tournamentGrid">
@@ -120,6 +128,7 @@ export default function Home() {
         <div className="referralCard">
           <span>🎁 REFERRAL PROGRAM</span>
           <h2>Invite. Grow. Earn.</h2>
+
           <p>
             Invite genuine gaming friends to BattleArena and unlock referral
             rewards as the community grows.
@@ -167,4 +176,4 @@ export default function Home() {
       </footer>
     </main>
   );
-}
+                  }
