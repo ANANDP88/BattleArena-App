@@ -27,9 +27,10 @@ export default function Home() {
   const [message, setMessage] = useState("");
 
   function register(game) {
-    setMessage(
-      `${game} registration will open soon. Follow BattleArena for the tournament announcement!`
-    );
+  window.open(
+    "https://forms.gle/PNvDTVtJj3ftiuBeA",
+    "_blank"
+  );
   }
 
   return (
