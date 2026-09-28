@@ -1,5 +1,5 @@
 const FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLScyEVnRrzlkI4rS_hkmPOS7PGnvKOJP7IPZkEzNPLmXROxV1A/viewform?usp=sharing&ouid=115312761396073556643";
+  "https://forms.gle/5i9eMGTxXnJxAdXy56073556643";
 
 async function sendMessage(chatId, text, keyboard) {
   await fetch(
