@@ -28,7 +28,7 @@ export default function Home() {
 
   function register(game) {
   window.open(
-    "https://forms.gle/PNvDTVtJj3ftiuBeA",
+    "https://docs.google.com/forms/d/e/1FAIpQLScyEVnRrzlkI4rS_hkmPOS7PGnvKOJP7IPZkEzNPLmXROxV1A/viewform?usp=publish-editor",
     "_blank"
   );
   }
