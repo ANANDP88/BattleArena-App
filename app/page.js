@@ -1,17 +1,170 @@
+"use client";
+
+import { useState } from "react";
+
+const tournaments = [
+  {
+    game: "BGMI",
+    icon: "🎯",
+    title: "BattleArena BGMI Tournament",
+    mode: "Squad",
+    entry: "FREE",
+    prize: "Coming Soon",
+    status: "Registration Soon",
+  },
+  {
+    game: "Free Fire",
+    icon: "🔥",
+    title: "BattleArena Free Fire Tournament",
+    mode: "Squad",
+    entry: "FREE",
+    prize: "Coming Soon",
+    status: "Registration Soon",
+  },
+];
+
 export default function Home() {
+  const [message, setMessage] = useState("");
+
+  function register(game) {
+    setMessage(
+      `${game} registration will open soon. Follow BattleArena for the tournament announcement!`
+    );
+  }
+
   return (
-    <main style={{ padding: 24 }}>
-      <h1>🔥 BattleArena</h1>
-      <p>Free Fire & BGMI Tournaments</p>
+    <main className="app">
+      <section className="hero">
+        <div className="badge">🏆 BATTLEARENA</div>
 
-      <h2>🏆 Tournaments</h2>
-      <p>Free tournaments coming soon.</p>
+        <h1>Play. Compete. Win.</h1>
 
-      <h2>🥇 Leaderboard</h2>
-      <p>Leaderboard will appear here.</p>
+        <p>
+          Free Fire & BGMI tournaments for the BattleArena gaming community.
+        </p>
 
-      <h2>🎁 Rewards</h2>
-      <p>Rewards and referrals coming soon.</p>
+        <div className="heroButtons">
+          <a href="#tournaments" className="primaryBtn">
+            🎮 View Tournaments
+          </a>
+
+          <a href="#referral" className="secondaryBtn">
+            🎁 Refer & Earn
+          </a>
+        </div>
+      </section>
+
+      <section id="tournaments" className="section">
+        <div className="sectionTitle">
+          <div>
+            <span>COMPETE</span>
+            <h2>🏆 Upcoming Tournaments</h2>
+          </div>
+        </div>
+
+        <div className="tournamentGrid">
+          {tournaments.map((tournament) => (
+            <article className="tournamentCard" key={tournament.game}>
+              <div className="gameIcon">{tournament.icon}</div>
+
+              <div className="status">{tournament.status}</div>
+
+              <h3>{tournament.title}</h3>
+
+              <div className="info">
+                <div>
+                  <small>GAME</small>
+                  <strong>{tournament.game}</strong>
+                </div>
+
+                <div>
+                  <small>MODE</small>
+                  <strong>{tournament.mode}</strong>
+                </div>
+
+                <div>
+                  <small>ENTRY</small>
+                  <strong>{tournament.entry}</strong>
+                </div>
+
+                <div>
+                  <small>PRIZE</small>
+                  <strong>{tournament.prize}</strong>
+                </div>
+              </div>
+
+              <button
+                className="registerBtn"
+                onClick={() => register(tournament.game)}
+              >
+                📝 Register
+              </button>
+            </article>
+          ))}
+        </div>
+
+        {message && <div className="notice">{message}</div>}
+      </section>
+
+      <section id="leaderboard" className="section">
+        <div className="simpleCard">
+          <span>🥇 LEADERBOARD</span>
+          <h2>BattleArena Rankings</h2>
+          <p>
+            Tournament winners and top players will appear here.
+          </p>
+        </div>
+      </section>
+
+      <section id="referral" className="section">
+        <div className="referralCard">
+          <span>🎁 REFERRAL PROGRAM</span>
+          <h2>Invite. Grow. Earn.</h2>
+          <p>
+            Invite genuine gaming friends to BattleArena and unlock referral
+            rewards as the community grows.
+          </p>
+
+          <div className="levels">
+            <div>
+              <b>🥉 Bronze</b>
+              <small>10 referrals</small>
+            </div>
+
+            <div>
+              <b>🥈 Silver</b>
+              <small>20 referrals</small>
+            </div>
+
+            <div>
+              <b>🥇 Gold</b>
+              <small>50 referrals</small>
+            </div>
+
+            <div>
+              <b>💎 Diamond</b>
+              <small>100 referrals</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="simpleCard">
+          <span>🎁 REWARDS</span>
+          <h2>BattleArena Rewards</h2>
+          <p>
+            Tournament rewards, champion kits, merchandise and community
+            rewards will be added here.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        <strong>🔥 BattleArena</strong>
+        <p>Free Fire & BGMI Tournaments</p>
+        <small>Play • Compete • Win</small>
+      </footer>
     </main>
   );
 }
