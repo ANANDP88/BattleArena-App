@@ -1,2 +1,2 @@
-# BattleArena Fresh
-Clean Next.js project. No Python files. Import this repository into Vercel and deploy with default Next.js settings. Add BOT_TOKEN later in Vercel Environment Variables. Never put the token in GitHub.
+# BattleArena
+Clean Next.js project for Vercel deployment.
