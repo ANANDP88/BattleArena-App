@@ -252,10 +252,10 @@ ${FORM_URL}`,
 
         await sendMessage(
           chatId,
-          info +
-            "\n\n🔗 Your Referral Link:\n" +
+          "🎮 Fun + 💰 Rewards — BattleArena me invite karo!\n🔥 Friends lao, compete karo, rewards unlock karo.\n⏳ Limited tournament slots — miss mat karna!\n\n🔗 Your Referral Link:\n" +
             referralLink +
-            "\n\n📌 Referral tabhi count hoga jab referred player registration/verification complete kare.",
+            "\n\n📌 Referral tabhi count hoga jab referred player registration/verification complete kare.\n\n" +
+            info
           keyboard
         );
       } catch (error) {
