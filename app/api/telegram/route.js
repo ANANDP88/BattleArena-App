@@ -299,9 +299,36 @@ ${FORM_URL}`,
               { inline_keyboard: [] }
             );
 
+            // Bot-started users are stored by the Apps Script saveUser action.
+            const usersRaw = await verificationRequest("getUsers", "");
+            const users = usersRaw
+              .split(/\r?\n/)
+              .map((id) => id.trim())
+              .filter((id) => /^-?\d+$/.test(id));
+
+            let sent = 0;
+            let failed = 0;
+
+            for (const userId of users) {
+              try {
+                await sendMessage(
+                  userId,
+                  "📢 BattleArena Announcement\n\n" + broadcastText,
+                  keyboard
+                );
+                sent++;
+              } catch (userError) {
+                failed++;
+                console.error("BROADCAST USER ERROR:", userId, userError);
+              }
+            }
+
             await sendMessage(
               chatId,
-              "✅ Broadcast sent to BattleArena channel.",
+              "✅ Broadcast complete.\n\n📣 Channel: sent\n👥 Bot users: " +
+                sent +
+                "\n⚠️ Failed: " +
+                failed,
               keyboard
             );
           } catch (error) {
