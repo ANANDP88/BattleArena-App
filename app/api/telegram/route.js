@@ -7,6 +7,11 @@ const GOOGLE_APPS_SCRIPT_URL =
 
 const BROADCAST_CHANNEL = "@battlearenaS2";
 
+const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969,6703996214")
+  .split(",")
+  .map((id) => id.trim())
+  .filter(Boolean);
+
 async function sendMessage(chatId, text, keyboard) {
   const response = await fetch(
     `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
