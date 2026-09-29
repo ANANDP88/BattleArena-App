@@ -112,21 +112,21 @@ export default function Home() {
 
         <div className="sponsorGrid">
           <div className="sponsorCard">
-            <div className="sponsorLogo sponsorOne">NOVA</div>
-            <strong>Nova Gaming</strong>
-            <small>Example Sponsor</small>
+            <div className="sponsorLogo sponsorOne">PX</div>
+            <strong>PixelX Gaming</strong>
+            <small>Potential Partner</small>
           </div>
 
           <div className="sponsorCard">
-            <div className="sponsorLogo sponsorTwo">XP</div>
-            <strong>XP Esports</strong>
-            <small>Example Sponsor</small>
+            <div className="sponsorLogo sponsorTwo">NF</div>
+            <strong>NextFrame Esports</strong>
+            <small>Potential Partner</small>
           </div>
 
           <div className="sponsorCard">
             <div className="sponsorLogo sponsorThree">GG</div>
-            <strong>GG Arena</strong>
-            <small>Example Sponsor</small>
+            <strong>GameGrid Arena</strong>
+            <small>Potential Partner</small>
           </div>
 
           <div className="sponsorCard sponsorEmpty">
