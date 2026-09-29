@@ -2,7 +2,7 @@ const FORM_URL =
   "https://forms.gle/SVmsQFFab3PReLYXA";
 
 const GOOGLE_APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwOU-TgNKalPyxc0U7jvn9F40ZJLOC2qFKd0HVhWd2ItxKaS5_SbwUWj8j7g2x2HYoc/exec";
+  "https://script.google.com/macros/s/AKfycbxEdKbjDYR9r6MQlZnVDKfwceZaNS88IJaMQ9vfTmh7ADlRAFezJe6EzAM42cDN04BJ/exec";
 
 const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969,6703996214")
   .split(",")
@@ -14,9 +14,7 @@ async function sendMessage(chatId, text, keyboard) {
     `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: chatId,
         text,
@@ -47,7 +45,9 @@ function verificationRequest(action, uid, extra = {}) {
     action,
     uid,
     ...Object.fromEntries(
-      Object.entries(extra).filter(([, value]) => value !== undefined && value !== null)
+      Object.entries(extra).filter(
+        ([, value]) => value !== undefined && value !== null
+      )
     ),
   });
 
@@ -64,7 +64,9 @@ function verificationRequest(action, uid, extra = {}) {
     });
 
     if (!response.ok) {
-      throw new Error(`Verification service returned HTTP ${response.status}`);
+      throw new Error(
+        `Verification service returned HTTP ${response.status}`
+      );
     }
 
     const result = await response.text();
@@ -81,7 +83,9 @@ function verificationRequest(action, uid, extra = {}) {
     }
 
     if (trimmed.length > 3500) {
-      throw new Error("Google verification service returned an unexpectedly long response.");
+      throw new Error(
+        "Google verification service returned an unexpectedly long response."
+      );
     }
 
     return trimmed;
@@ -94,7 +98,6 @@ function verificationRequest(action, uid, extra = {}) {
     clearTimeout(timeout);
   }
 }
-
 
 const keyboard = {
   keyboard: [
@@ -121,6 +124,7 @@ export async function POST(req) {
 
     if (text.startsWith("/start")) {
       const username = message?.from?.username || "";
+
       if (username) {
         try {
           await verificationRequest("saveUser", "", {
@@ -192,7 +196,9 @@ ${FORM_URL}`,
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        const uid = text.replace(/^\/(?:verify)(?:@[^\s]+)?/i, "").trim();
+        const uid = text
+          .replace(/^\/(?:verify)(?:@[^\s]+)?/i, "")
+          .trim();
 
         if (!uid) {
           await sendMessage(
@@ -212,6 +218,7 @@ ${FORM_URL}`,
 
             if (result.startsWith("✅ REGISTRATION VERIFIED")) {
               const username = message?.from?.username || "";
+
               if (username) {
                 try {
                   await verificationRequest("saveUser", "", {
@@ -225,13 +232,18 @@ ${FORM_URL}`,
 
               await sendMessage(
                 chatId,
-                result + "\n\n📩 Verification complete. Your BattleArena registration is confirmed.",
+                result +
+                  "\n\n📩 Verification complete. Your BattleArena registration is confirmed.",
                 keyboard
               );
 
               try {
                 const playerChatId = await getPlayerChatId(uid);
-                if (playerChatId && playerChatId !== String(chatId)) {
+
+                if (
+                  playerChatId &&
+                  playerChatId !== String(chatId)
+                ) {
                   await sendMessage(
                     playerChatId,
                     result +
@@ -240,18 +252,25 @@ ${FORM_URL}`,
                   );
                 }
               } catch (playerError) {
-                console.error("PLAYER NOTIFICATION ERROR:", playerError);
+                console.error(
+                  "PLAYER NOTIFICATION ERROR:",
+                  playerError
+                );
               }
             } else {
               await sendMessage(chatId, result, keyboard);
             }
           } catch (error) {
             console.error("VERIFY ERROR:", error);
+
             await sendMessage(
               chatId,
               "⚠️ Verification service error.\n\n" +
-                "UID: " + uid + "\n" +
-                "Error: " + (error?.message || "Unknown error"),
+                "UID: " +
+                uid +
+                "\n" +
+                "Error: " +
+                (error?.message || "Unknown error"),
               keyboard
             );
           }
@@ -261,7 +280,9 @@ ${FORM_URL}`,
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        const uid = text.replace(/^\/(?:reject)(?:@[^\s]+)?/i, "").trim();
+        const uid = text
+          .replace(/^\/(?:reject)(?:@[^\s]+)?/i, "")
+          .trim();
 
         if (!uid) {
           await sendMessage(
@@ -277,15 +298,23 @@ ${FORM_URL}`,
               keyboard
             );
 
-            const result = await verificationRequest("reject", uid);
+            const result = await verificationRequest(
+              "reject",
+              uid
+            );
+
             await sendMessage(chatId, result, keyboard);
           } catch (error) {
             console.error("REJECT ERROR:", error);
+
             await sendMessage(
               chatId,
               "⚠️ Verification service error.\n\n" +
-                "UID: " + uid + "\n" +
-                "Error: " + (error?.message || "Unknown error"),
+                "UID: " +
+                uid +
+                "\n" +
+                "Error: " +
+                (error?.message || "Unknown error"),
               keyboard
             );
           }
