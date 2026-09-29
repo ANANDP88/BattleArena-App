@@ -61,8 +61,22 @@ export default function Home() {
               🎮 View Tournaments
             </a>
 
-            <a href="#referral" className="secondaryBtn">
-              🎁 Refer & Earn
+            <a
+              href="https://t.me/battlearenaS2"
+              target="_blank"
+              rel="noreferrer"
+              className="secondaryBtn"
+            >
+              📢 Join Telegram Channel
+            </a>
+
+            <a
+              href="https://t.me/TheBattleArena_bot"
+              target="_blank"
+              rel="noreferrer"
+              className="secondaryBtn"
+            >
+              🤖 Open BattleArena Bot
             </a>
           </div>
         </div>
