@@ -415,19 +415,9 @@ ${FORM_URL}`,
               approveUid
             );
 
+            // Approval itself is complete after the Apps Script response.
+            // Do not block the admin command on a second Google request for player chat ID.
             await sendMessage(chatId, result, keyboard);
-
-            const playerChatId = await getPlayerChatId(approveUid);
-
-            if (playerChatId && playerChatId !== String(chatId)) {
-              await sendMessage(
-                playerChatId,
-                "🎉 Registration Approved!\n\n" +
-                  "🆔 BGMI UID: " + approveUid +
-                  "\n\n🏆 Your BattleArena tournament registration is approved.\n📅 18 October 2026\n⏰ 8:00 PM IST",
-                keyboard
-              );
-            }
           } catch (error) {
             console.error("APPROVE ERROR:", error);
             await sendMessage(
