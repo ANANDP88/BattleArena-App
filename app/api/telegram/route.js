@@ -447,6 +447,34 @@ ${FORM_URL}`,
           );
         }
       }
+    } else if (command === "/reply") {
+      if (!(await isAdmin(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        const args = text.replace(/^\/reply(?:@[^\s]+)?/i, "").trim();
+        const firstSpace = args.indexOf(" ");
+        const targetChatId = firstSpace > 0 ? args.slice(0, firstSpace).trim() : "";
+        const replyText = firstSpace > 0 ? args.slice(firstSpace + 1).trim() : "";
+
+        if (!targetChatId || !replyText) {
+          await sendMessage(
+            chatId,
+            "💬 Reply to User\n\nUsage:\n/reply CHAT_ID Your message",
+            keyboard
+          );
+        } else {
+          try {
+            await sendMessage(targetChatId, "👑 BattleArena Admin\n\n" + replyText, keyboard);
+            await sendMessage(chatId, "✅ Reply sent to user " + targetChatId, keyboard);
+          } catch (error) {
+            await sendMessage(
+              chatId,
+              "⚠️ Reply failed.\n\n" + (error?.message || "Unknown error"),
+              keyboard
+            );
+          }
+        }
+      }
     } else if (text === "⬅️ Main Menu") {
       await sendMessage(chatId, "👇 Main menu", keyboard);
     } else if (text === "📢 Broadcast") {
@@ -780,11 +808,62 @@ ${FORM_URL}`,
         }
       }
     } else {
-      await sendMessage(
-        chatId,
-        "👇 कृपया नीचे दिए गए menu से option चुनें.",
-        keyboard
-      );
+      const q = text.toLowerCase();
+
+      let faqReply = "";
+
+      if (/^(hi|hello|hey|hii|namaste|नमस्ते)/i.test(text)) {
+        faqReply = "👋 Welcome to BattleArena!\n\n🎮 Free Fire & BGMI tournaments\n📝 Registration, results, rewards aur referrals ke liye neeche menu use karein.";
+      } else if (/tournament|tourney|match|kab|date|time|when/i.test(q)) {
+        faqReply = "🏆 Upcoming Tournament\n\n🎮 BattleArena BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n\n📝 Registration OPEN hai.";
+      } else if (/register|registration|form|join|participate|entry/i.test(q)) {
+        faqReply = "📝 Registration\n\nBattleArena BGMI Dussehra Special ke liye registration free hai.\n\n👇 Menu me 📝 Register button dabayein.";
+      } else if (/free fire|ff tournament|freefire/i.test(q)) {
+        faqReply = "🔥 Free Fire tournaments bhi BattleArena ka part hain. Upcoming Free Fire tournament ki details official announcement me milengi.";
+      } else if (/bgmi|uid|player id|team|squad/i.test(q)) {
+        faqReply = "🎮 BGMI\n\nRegistration ke waqt correct BGMI UID aur team details dena zaroori hai. Galat UID se verification me problem ho sakti hai.";
+      } else if (/verify|verification|approved|approve|reject|status/i.test(q)) {
+        faqReply = "🔐 Verification\n\nRegistration ke baad BattleArena team UID verify karti hai. Verification complete hone par registration confirmed hota hai.";
+      } else if (/rule|rules|cheat|hack|fair play|ban/i.test(q)) {
+        faqReply = "📜 Rules\n\nFair play only. Hacks/cheats allowed nahi hain. Correct UID dena aur tournament instructions follow karna zaroori hai.";
+      } else if (/reward|prize|winner|1st|2nd|3rd|champion/i.test(q)) {
+        faqReply = "🎁 Rewards\n\n🥇 1st — Champion Title + Badge + Special Reward\n🥈 2nd — Runner-Up Badge + Special Reward\n🥉 3rd — 3rd Place Badge + Special Reward\n\nFinal rewards officially announce kiye jayenge.";
+      } else if (/refer|referral|invite|friend|bronze|silver|gold|diamond/i.test(q)) {
+        faqReply = "🎁 Refer & Earn\n\nReferral optional hai. Referred player registration/verification complete karega tab referral count hoga.\n\nReferral link ke liye 🎁 Refer & Earn button use karein.";
+      } else if (/leaderboard|result|position|rank|score/i.test(q)) {
+        faqReply = "🏆 Leaderboard\n\nPublished tournament results 🏆 Leaderboard button me milenge.";
+      } else if (/merch|merchandise|shirt|t-shirt|hoodie|cap|jersey|medal|trophy/i.test(q)) {
+        faqReply = "👕 Merchandise\n\nBattleArena merchandise store future me available hoga. T-shirts, jerseys, caps, champion kits aur more planned hain.";
+      } else if (/contact|support|help|admin|problem|issue|complaint|payment|technical/i.test(q)) {
+        faqReply = "🆘 Support\n\nAapka message BattleArena team tak forward kiya ja sakta hai. Apna issue clearly likhein; admin aapko reply karega.";
+      }
+
+      if (faqReply) {
+        await sendMessage(chatId, faqReply, keyboard);
+      } else {
+        await sendMessage(
+          chatId,
+          "📩 Aapka question BattleArena Admin ko bhej diya gaya hai.\n\n👑 Admin aapko reply karega.",
+          keyboard
+        );
+
+        for (const adminId of await getCurrentAdminIds()) {
+          if (adminId !== String(chatId)) {
+            try {
+              await sendMessage(
+                adminId,
+                "💬 NEW USER QUESTION\n\n👤 User Chat ID: " + chatId +
+                  "\n" + (message?.from?.username ? "📛 Username: @" + message.from.username + "\n" : "") +
+                  "\n❓ Question:\n" + text +
+                  "\n\nReply command:\n/reply " + chatId + " Your answer",
+                keyboard
+              );
+            } catch (adminError) {
+              console.error("ADMIN QUESTION NOTIFY ERROR:", adminError);
+            }
+          }
+        }
+      }
     }
 
     return Response.json({ ok: true });
