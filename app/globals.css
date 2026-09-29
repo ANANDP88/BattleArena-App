@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Teko:wght@400;500;600;700&display=swap');
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -51,4 +51,4 @@ footer p{margin:8px 0 4px}
 
 
 body { font-family: 'Rajdhani', system-ui, sans-serif; }
-h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Orbitron', 'Rajdhani', system-ui, sans-serif; }
+h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Teko', 'Rajdhani', system-ui, sans-serif; font-weight: 600; }
