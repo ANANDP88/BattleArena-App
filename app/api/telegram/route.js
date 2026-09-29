@@ -661,7 +661,8 @@ ${FORM_URL}`,
       } else if (/refer|referral|invite|friend|bronze|silver|gold|diamond/i.test(q)) {
         faqReply = "🎁 Refer & Earn\n\nReferral optional hai. Referred player registration/verification complete karega tab referral count hoga.\n\nReferral link ke liye 🎁 Refer & Earn button use karein.";
       } else if (/history|past tournament|previous tournament|winner history/i.test(q)) {
-        faqReply = "📚 Tournament History\n\nUpcoming: BGMI Dussehra Special — 18 October 2026, 8:00 PM IST.\n\nPast winners aur completed tournaments history yahan publish hogi.";\n      } else if (/leaderboard|result|position|rank|score/i.test(q)) {
+        faqReply = "📚 Tournament History\n\nUpcoming: BGMI Dussehra Special — 18 October 2026, 8:00 PM IST.\n\nPast winners aur completed tournaments history yahan publish hogi.";
+      } else if (/leaderboard|result|position|rank|score/i.test(q)) {
         faqReply = "🏆 Leaderboard\n\nPublished tournament results 🏆 Leaderboard button me milenge.";
       } else if (/merch|merchandise|shirt|t-shirt|hoodie|cap|jersey|medal|trophy/i.test(q)) {
         faqReply = "👕 Merchandise\n\nBattleArena merchandise store future me available hoga. T-shirts, jerseys, caps, champion kits aur more planned hain.";
