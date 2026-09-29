@@ -107,7 +107,7 @@ const keyboard = {
   keyboard: [
     ["🎮 Tournaments", "📝 Register"],
     ["🏆 Leaderboard", "🎁 Rewards"],
-    ["📚 Tournament History"],
+    ["📚 Tournament History", "📊 My Stats"],
     ["🎁 Refer & Earn", "👕 Merchandise"],
     ["📢 Broadcast"],
     ["📜 Rules", "❓ Help"],
@@ -218,6 +218,20 @@ ${FORM_URL}`,
         "📚 BATTLEARENA TOURNAMENT HISTORY\n\n🟢 UPCOMING\n🏆 BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n📌 Status: Registration OPEN\n\n🏅 PAST WINNERS\nNo completed tournaments yet.\n\n🔥 BattleArena history yahin update hoti rahegi.",
         keyboard
       );
+    } else if (text === "📊 My Stats") {
+      try {
+        const stats = await verificationRequest("playerstats", "", {
+          chatId: String(chatId),
+        });
+        await sendMessage(chatId, stats, keyboard);
+      } catch (error) {
+        console.error("PLAYER STATS ERROR:", error);
+        await sendMessage(
+          chatId,
+          "📊 BATTLEARENA PLAYER STATS\n\n🎮 Tournaments Played: 0\n🏆 Wins: 0\n🥈 Runner-Up: 0\n🥉 3rd Place: 0\n⭐ Best Performance: —\n\n📌 Stats will update automatically after tournament results are recorded.",
+          keyboard
+        );
+      }
     } else if (text === "🎁 Rewards") {
       await sendMessage(
         chatId,
