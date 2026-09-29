@@ -10,7 +10,7 @@ const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969,6703996214")
   .filter(Boolean);
 
 async function sendMessage(chatId, text, keyboard) {
-  await fetch(
+  const response = await fetch(
     `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
     {
       method: "POST",
@@ -24,6 +24,16 @@ async function sendMessage(chatId, text, keyboard) {
       }),
     }
   );
+
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok || !data?.ok) {
+    throw new Error(
+      `Telegram sendMessage failed: ${data?.description || `HTTP ${response.status}`}`
+    );
+  }
+
+  return data;
 }
 
 async function verificationRequest(action, uid) {
