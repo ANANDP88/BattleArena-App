@@ -76,7 +76,9 @@ export async function POST(req) {
     const update = await req.json();
     const message = update?.message;
     const chatId = message?.chat?.id;
-    const text = message?.text || "";
+    const rawText = message?.text || "";
+    const text = rawText.trim();
+    const command = text.split(/\\s+/)[0].toLowerCase().split("@")[0];
 
     if (!chatId) {
       return Response.json({ ok: true });
@@ -139,11 +141,11 @@ ${FORM_URL}`,
         "❓ BattleArena Help\n\n🎮 Tournament → Upcoming match\n📝 Register → Registration form\n🏆 Leaderboard → Results\n🎁 Rewards → Rewards information\n👕 Merchandise → BattleArena products\n\n🔐 /verify UID → Verify registration\n❌ /reject UID → Reject registration\n🆔 /myid → Your Telegram ID",
         keyboard
       );
-    } else if (text === "/verify" || text.startsWith("/verify ")) {
+    } else if (command === "/verify") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        const uid = text.slice("/verify".length).trim();
+        const uid = text.replace(/^\\/verify(?:@[^\\s]+)?/i, "").trim();
 
         if (!uid) {
           await sendMessage(
@@ -153,6 +155,12 @@ ${FORM_URL}`,
           );
         } else {
           try {
+            await sendMessage(
+              chatId,
+              `🔄 Verifying registration...\\n\\n🆔 BGMI UID: ${uid}`,
+              keyboard
+            );
+
             const result = await verificationRequest("verify", uid);
             await sendMessage(chatId, result, keyboard);
           } catch (error) {
@@ -167,11 +175,11 @@ ${FORM_URL}`,
           }
         }
       }
-    } else if (text === "/reject" || text.startsWith("/reject ")) {
+    } else if (command === "/reject") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        const uid = text.slice("/reject".length).trim();
+        const uid = text.replace(/^\\/reject(?:@[^\\s]+)?/i, "").trim();
 
         if (!uid) {
           await sendMessage(
@@ -181,6 +189,12 @@ ${FORM_URL}`,
           );
         } else {
           try {
+            await sendMessage(
+              chatId,
+              `🔄 Rejecting registration...\\n\\n🆔 BGMI UID: ${uid}`,
+              keyboard
+            );
+
             const result = await verificationRequest("reject", uid);
             await sendMessage(chatId, result, keyboard);
           } catch (error) {
