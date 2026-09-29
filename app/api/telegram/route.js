@@ -157,7 +157,7 @@ ${FORM_URL}`,
           try {
             await sendMessage(
               chatId,
-              `🔄 Verifying registration...\\n\\n🆔 BGMI UID: ${uid}`,
+              `🔄 Verifying registration...\n\n🆔 BGMI UID: ${uid}`,
               keyboard
             );
 
@@ -191,7 +191,7 @@ ${FORM_URL}`,
           try {
             await sendMessage(
               chatId,
-              `🔄 Rejecting registration...\\n\\n🆔 BGMI UID: ${uid}`,
+              `🔄 Rejecting registration...\n\n🆔 BGMI UID: ${uid}`,
               keyboard
             );
 
