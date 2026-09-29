@@ -394,6 +394,51 @@ ${FORM_URL}`,
           }
         }
       }
+    } else if (command === "/approve") {
+      if (!ADMIN_IDS.includes(String(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        const approveUid = text
+          .replace(/^\/(?:approve)(?:@[^\s]+)?/i, "")
+          .trim();
+
+        if (!approveUid) {
+          await sendMessage(
+            chatId,
+            "✅ Approve Registration\n\nUsage:\n/approve BGMI_UID",
+            keyboard
+          );
+        } else {
+          try {
+            const result = await verificationRequest(
+              "approve",
+              approveUid
+            );
+
+            await sendMessage(chatId, result, keyboard);
+
+            const playerChatId = await getPlayerChatId(approveUid);
+
+            if (playerChatId && playerChatId !== String(chatId)) {
+              await sendMessage(
+                playerChatId,
+                "🎉 Registration Approved!\n\n" +
+                  "🆔 BGMI UID: " + approveUid +
+                  "\n\n🏆 Your BattleArena tournament registration is approved.\n📅 18 October 2026\n⏰ 8:00 PM IST",
+                keyboard
+              );
+            }
+          } catch (error) {
+            console.error("APPROVE ERROR:", error);
+            await sendMessage(
+              chatId,
+              "⚠️ Approval service error.\n\n" +
+                (error?.message || "Unknown error"),
+              keyboard
+            );
+          }
+        }
+      }
     } else if (command === "/reject") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
