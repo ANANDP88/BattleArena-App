@@ -90,4 +90,4 @@ h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Tek
 .prizeBreakdown div:nth-child(3){grid-area:third}
 
 .statusClosed{background:rgba(105,112,124,.09);border-color:rgba(126,134,148,.16);color:#7f8795}
-.statusOpen{background:rgba(255,210,31,.1);border-color:rgba(255,210,31,.18);color:#ffd84a}
+.statusOpen{background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3);color:#4ee58a;box-shadow:0 0 14px rgba(46,204,113,.08)}
