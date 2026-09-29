@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tournaments = [
   {
@@ -27,6 +27,33 @@ const tournaments = [
 
 export default function Home() {
   const [message, setMessage] = useState("");
+  const [countdown, setCountdown] = useState("");
+
+  useEffect(() => {
+    const target = new Date("2026-10-17T20:00:00+05:30").getTime();
+
+    function updateCountdown() {
+      const diff = target - Date.now();
+
+      if (diff <= 0) {
+        setCountdown("Registration closing");
+        return;
+      }
+
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      setCountdown(
+        `${days}d : ${String(hours).padStart(2, "0")}h : ${String(minutes).padStart(2, "0")}m : ${String(seconds).padStart(2, "0")}s`
+      );
+    }
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   function register(game) {
     if (game !== "BGMI") return;
@@ -129,6 +156,14 @@ export default function Home() {
               <div className="status">
                 {tournament.status}
               </div>
+
+              {tournament.game === "BGMI" && (
+                <div className="countdown">
+                  <small>⏳ REGISTRATION CLOSES IN</small>
+                  <strong>{countdown}</strong>
+                  <span>Deadline: 17 October 2026 • 8:00 PM IST</span>
+                </div>
+              )}
 
               <h3>{tournament.title}</h3>
 
