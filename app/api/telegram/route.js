@@ -145,7 +145,7 @@ ${FORM_URL}`,
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        const uid = text.replace(/^\\/verify(?:@[^\\s]+)?/i, "").trim();
+        const uid = text.replace(/^\/(?:verify)(?:@[^\s]+)?/i, "").trim();
 
         if (!uid) {
           await sendMessage(
@@ -179,7 +179,7 @@ ${FORM_URL}`,
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        const uid = text.replace(/^\\/reject(?:@[^\\s]+)?/i, "").trim();
+        const uid = text.replace(/^\/(?:reject)(?:@[^\s]+)?/i, "").trim();
 
         if (!uid) {
           await sendMessage(
