@@ -5,6 +5,8 @@ const FORM_URL =
 const GOOGLE_APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxS63QwMwXgUl0K_UUW-LBbBUwpZcbY7Y5lbCxyn8XSesOL7DLW0Drh9LQlL4u8m9Gv/exec";
 
+const BROADCAST_CHANNEL = "@battlearenaS2";
+
 const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969,6703996214")
   .split(",")
   .map((id) => id.trim())
@@ -105,6 +107,7 @@ const keyboard = {
     ["🎮 Tournaments", "📝 Register"],
     ["🏆 Leaderboard", "🎁 Rewards"],
     ["🎁 Refer & Earn", "👕 Merchandise"],
+    ["📢 Broadcast"],
     ["📜 Rules", "❓ Help"],
   ],
   resize_keyboard: true,
@@ -264,6 +267,54 @@ ${FORM_URL}`,
         "❓ BattleArena Help\n\n🎮 Tournament → Upcoming match\n📝 Register → Registration form\n🏆 Leaderboard → Results\n🎁 Rewards → Rewards information\n👕 Merchandise → BattleArena products\n\n🔐 /verify UID → Verify registration\n❌ /reject UID → Reject registration\n🆔 /myid → Your Telegram ID",
         keyboard
       );
+    } else if (text === "📢 Broadcast") {
+      if (!ADMIN_IDS.includes(String(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        await sendMessage(
+          chatId,
+          "📢 Broadcast Panel\n\nUsage:\n/broadcast Your message here\n\nThis sends the announcement to the BattleArena Telegram channel.",
+          keyboard
+        );
+      }
+    } else if (command === "/broadcast") {
+      if (!ADMIN_IDS.includes(String(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        const broadcastText = text
+          .replace(/^\/broadcast(?:@[^\s]+)?/i, "")
+          .trim();
+
+        if (!broadcastText) {
+          await sendMessage(
+            chatId,
+            "📢 Broadcast Panel\n\nUsage:\n/broadcast Your message here",
+            keyboard
+          );
+        } else {
+          try {
+            await sendMessage(
+              BROADCAST_CHANNEL,
+              "📢 BattleArena Announcement\n\n" + broadcastText,
+              { inline_keyboard: [] }
+            );
+
+            await sendMessage(
+              chatId,
+              "✅ Broadcast sent to BattleArena channel.",
+              keyboard
+            );
+          } catch (error) {
+            console.error("BROADCAST ERROR:", error);
+            await sendMessage(
+              chatId,
+              "⚠️ Broadcast failed.\n\n" +
+                (error?.message || "Unknown error"),
+              keyboard
+            );
+          }
+        }
+      }
     } else if (command === "/verify") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
