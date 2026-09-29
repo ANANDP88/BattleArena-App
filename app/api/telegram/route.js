@@ -663,7 +663,7 @@ ${FORM_URL}`,
       } else {
         await sendMessage(
           chatId,
-          "📩 Aapka question BattleArena Admin ko bhej diya gaya hai.\n\n👑 Admin aapko reply karega.",
+          "📩 Aapka question BattleArena Admin ko bhej diya gaya hai.\n\n👑 Our team will get back to you shortly.",
           keyboard
         );
 
