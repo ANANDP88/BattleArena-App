@@ -87,3 +87,9 @@ h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Tek
 .prizeBreakdown div:nth-child(3){border-color:rgba(184,115,51,.32)}
 .prizeBreakdown div:nth-child(3) strong{color:#d6a06b}
 @media(max-width:380px){.prizeBreakdown{gap:7px;padding:9px}.prizeBreakdown div{padding:10px 4px}.prizeBreakdown strong{font-size:19px}.prizeBreakdown span{font-size:10px}}
+
+
+.prizeBreakdown{grid-template-columns:1fr 1fr;grid-template-areas:"first first" "second third"}
+.prizeBreakdown div:nth-child(1){grid-area:first}
+.prizeBreakdown div:nth-child(2){grid-area:second}
+.prizeBreakdown div:nth-child(3){grid-area:third}
