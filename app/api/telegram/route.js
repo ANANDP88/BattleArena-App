@@ -40,7 +40,7 @@ async function getPlayerChatId(uid) {
   return result.trim();
 }
 
-function verificationRequest(action, uid, extra = {}) {
+async function verificationRequest(action, uid, extra = {}) {
   const params = new URLSearchParams({
     action,
     uid,
