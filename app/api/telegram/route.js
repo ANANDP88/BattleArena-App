@@ -663,7 +663,7 @@ ${FORM_URL}`,
       } else if (/register|registration|form|join|participate|entry/i.test(q)) {
         faqReply = "📝 Registration\n\nBattleArena BGMI Dussehra Special ke liye registration free hai.\n\n👇 Menu me 📝 Register button dabayein.";
       } else if (/free fire|ff tournament|freefire/i.test(q)) {
-        faqReply = "🔥 Free Fire tournaments bhi BattleArena ka part hain. Upcoming Free Fire tournament ki details official announcement me milengi.";
+        faqReply = "🔥 Free Fire Tournament\n\n🎮 Free Fire Squad Tournament\n💰 Prize: XXX\n📌 Final prize details official announcement me reveal hongi." ;
       } else if (/bgmi|uid|player id|team|squad/i.test(q)) {
         faqReply = "🎮 BGMI\n\nRegistration ke waqt correct BGMI UID aur team details dena zaroori hai. Galat UID se verification me problem ho sakti hai.";
       } else if (/verify|verification|approved|approve|reject|status/i.test(q)) {
