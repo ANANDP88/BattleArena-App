@@ -316,7 +316,10 @@ ${FORM_URL}`,
                     const referralResult = await verificationRequest(
                       "verifyreferral",
                       "",
-                      { referred: String(playerChatId) }
+                      {
+                        referred: String(playerChatId),
+                        uid: String(uid),
+                      }
                     );
 
                     console.log(
