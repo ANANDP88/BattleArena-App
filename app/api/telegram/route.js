@@ -36,9 +36,16 @@ async function sendMessage(chatId, text, keyboard) {
   return data;
 }
 
-async function verificationRequest(action, uid) {
-  const url =
-    `${GOOGLE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&uid=${encodeURIComponent(uid)}`;
+async function verificationRequest(action, uid, extra = {}) {
+  const params = new URLSearchParams({
+    action,
+    uid,
+    ...Object.fromEntries(
+      Object.entries(extra).filter(([, value]) => value !== undefined && value !== null)
+    ),
+  });
+
+  const url = `${GOOGLE_APPS_SCRIPT_URL}?${params.toString()}`;
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
@@ -68,9 +75,7 @@ async function verificationRequest(action, uid) {
     }
 
     if (trimmed.length > 3500) {
-      throw new Error(
-        "Google verification service returned an unexpectedly long response."
-      );
+      throw new Error("Google verification service returned an unexpectedly long response.");
     }
 
     return trimmed;
@@ -83,6 +88,7 @@ async function verificationRequest(action, uid) {
     clearTimeout(timeout);
   }
 }
+
 
 const keyboard = {
   keyboard: [
@@ -108,6 +114,18 @@ export async function POST(req) {
     }
 
     if (text.startsWith("/start")) {
+      const username = message?.from?.username || "";
+      if (username) {
+        try {
+          await verificationRequest("saveUser", "", {
+            username,
+            chatId: String(chatId),
+          });
+        } catch (saveError) {
+          console.error("SAVE USER ERROR:", saveError);
+        }
+      }
+
       await sendMessage(
         chatId,
         "🏆 Welcome to BattleArena!\n\n🎮 Free Fire & BGMI Tournaments\n🔥 Free Registration\n🏅 Compete & Win Rewards!\n\n👇 नीचे menu से option चुनें:",
@@ -185,7 +203,28 @@ ${FORM_URL}`,
             );
 
             const result = await verificationRequest("verify", uid);
-            await sendMessage(chatId, result, keyboard);
+
+            if (result.startsWith("✅ REGISTRATION VERIFIED")) {
+              const username = message?.from?.username || "";
+              if (username) {
+                try {
+                  await verificationRequest("saveUser", "", {
+                    username,
+                    chatId: String(chatId),
+                  });
+                } catch (saveError) {
+                  console.error("SAVE USER ERROR:", saveError);
+                }
+              }
+
+              await sendMessage(
+                chatId,
+                result + "\n\n📩 Verification complete. Your BattleArena registration is confirmed.",
+                keyboard
+              );
+            } else {
+              await sendMessage(chatId, result, keyboard);
+            }
           } catch (error) {
             console.error("VERIFY ERROR:", error);
             await sendMessage(
