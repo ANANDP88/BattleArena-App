@@ -2,7 +2,7 @@ const FORM_URL =
   "https://forms.gle/SVmsQFFab3PReLYXA";
 
 const GOOGLE_APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxEdKbjDYR9r6MQlZnVDKfwceZaNS88IJaMQ9vfTmh7ADlRAFezJe6EzAM42cDN04BJ/exec";
+  "https://script.google.com/macros/s/AKfycbxskv_7MmRuKMOOYs-LsKKZpg5QF_PQC-AxCMEbGb9JXXgjlj7SvLAoOFmKe4-DfKmJ/exec";
 
 const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969,6703996214")
   .split(",")
