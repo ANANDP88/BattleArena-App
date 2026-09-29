@@ -113,7 +113,7 @@ export default function Home() {
           <div className="sponsorCard sponsorEmpty">
             <div className="sponsorLogo">+</div>
             <strong>Your Brand Here</strong>
-            <small>Become a Sponsor</small>
+            <a href="https://t.me/Ciattra" target="_blank" rel="noreferrer" className="sponsorContact">Become a Sponsor</a>
           </div>
         </div>
       </section>
