@@ -1,3 +1,4 @@
+// BattleArena production sync marker — 2026-09-29
 const FORM_URL =
   "https://forms.gle/SVmsQFFab3PReLYXA";
 
