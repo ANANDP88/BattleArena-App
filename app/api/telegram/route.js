@@ -36,7 +36,13 @@ async function sendMessage(chatId, text, keyboard) {
   return data;
 }
 
-async function verificationRequest(action, uid, extra = {}) {
+async async function getPlayerChatId(uid) {
+  const result = await verificationRequest("getChatId", uid);
+  if (!result || result === "CHAT_ID_NOT_FOUND") return "";
+  return result.trim();
+}
+
+function verificationRequest(action, uid, extra = {}) {
   const params = new URLSearchParams({
     action,
     uid,
@@ -222,6 +228,20 @@ ${FORM_URL}`,
                 result + "\n\n📩 Verification complete. Your BattleArena registration is confirmed.",
                 keyboard
               );
+
+              try {
+                const playerChatId = await getPlayerChatId(uid);
+                if (playerChatId && playerChatId !== String(chatId)) {
+                  await sendMessage(
+                    playerChatId,
+                    result +
+                      "\n\n🎉 Congratulations! Your BattleArena registration has been verified.\n\n📅 18 October 2026\n⏰ 8:00 PM IST",
+                    keyboard
+                  );
+                }
+              } catch (playerError) {
+                console.error("PLAYER NOTIFICATION ERROR:", playerError);
+              }
             } else {
               await sendMessage(chatId, result, keyboard);
             }
