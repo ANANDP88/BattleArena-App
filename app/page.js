@@ -73,10 +73,17 @@ export default function Home() {
 
         <div className="tournamentGrid">
           {tournaments.map((tournament) => (
-            <article className="tournamentCard" key={tournament.game}>
-              <div className="gameIcon">{tournament.icon}</div>
+            <article
+              className="tournamentCard"
+              key={tournament.game}
+            >
+              <div className="gameIcon">
+                {tournament.icon}
+              </div>
 
-              <div className="status">{tournament.status}</div>
+              <div className="status">
+                {tournament.status}
+              </div>
 
               <h3>{tournament.title}</h3>
 
@@ -112,13 +119,19 @@ export default function Home() {
           ))}
         </div>
 
-        {message && <div className="notice">{message}</div>}
+        {message && (
+          <div className="notice">
+            {message}
+          </div>
+        )}
       </section>
 
       <section id="leaderboard" className="section">
         <div className="simpleCard">
           <span>🥇 LEADERBOARD</span>
+
           <h2>BattleArena Rankings</h2>
+
           <p>
             Tournament winners and top players will appear here.
           </p>
@@ -128,11 +141,12 @@ export default function Home() {
       <section id="referral" className="section">
         <div className="referralCard">
           <span>🎁 REFERRAL PROGRAM</span>
+
           <h2>Invite. Grow. Earn.</h2>
 
           <p>
-            Invite genuine gaming friends to BattleArena and unlock referral
-            rewards as the community grows.
+            Invite genuine gaming friends to BattleArena and
+            unlock referral rewards as the community grows.
           </p>
 
           <div className="levels">
@@ -162,19 +176,27 @@ export default function Home() {
       <section className="section">
         <div className="simpleCard">
           <span>🎁 REWARDS</span>
+
           <h2>BattleArena Rewards</h2>
+
           <p>
-            Tournament rewards, champion kits, merchandise and community
-            rewards will be added here.
+            Tournament rewards, champion kits, merchandise
+            and community rewards will be added here.
           </p>
         </div>
       </section>
 
       <footer>
         <strong>🔥 BattleArena</strong>
-        <p>Free Fire & BGMI Tournaments</p>
-        <small>Play • Compete • Win</small>
+
+        <p>
+          Free Fire & BGMI Tournaments
+        </p>
+
+        <small>
+          Play • Compete • Win
+        </small>
       </footer>
     </main>
   );
-                  }
+              }
