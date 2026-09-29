@@ -9,7 +9,7 @@ const tournaments = [
     title: "BattleArena BGMI — Dussehra Special",
     mode: "Squad",
     entry: "FREE",
-    prize: "Special Rewards",
+    prize: "₹5,000",
     status: "Registration OPEN",
     open: true,
   },
@@ -166,6 +166,12 @@ export default function Home() {
               )}
 
               <h3>{tournament.title}</h3>
+
+              <div className="prizeBreakdown">
+  <div><span>🥇 1st</span><strong>₹3,000</strong></div>
+  <div><span>🥈 2nd</span><strong>₹1,500</strong></div>
+  <div><span>🥉 3rd</span><strong>₹500</strong></div>
+</div>
 
               <div className="info">
                 <div>
