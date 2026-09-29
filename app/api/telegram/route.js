@@ -427,15 +427,45 @@ ${FORM_URL}`,
         `🆔 Your Telegram Chat ID: ${chatId}\n\nIs ID ko admin verification ke liye use kiya ja sakta hai.`,
         keyboard
       );
-    } else if (text.startsWith("/result ")) {
+    } else if (command === "/result") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        await sendMessage(
-          chatId,
-          "🏆 Result command received.\n\nLeaderboard storage connection is the next backend step.",
-          keyboard
-        );
+        const resultArgs = text
+          .replace(/^\/result(?:@[^\s]+)?/i, "")
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+        if (resultArgs.length < 2) {
+          await sendMessage(
+            chatId,
+            "🏆 Add Tournament Result\n\nUsage:\n/result BGMI_UID POSITION\n\nExample:\n/result 226019 1",
+            keyboard
+          );
+        } else {
+          const resultUid = resultArgs[0];
+          const position = resultArgs[1];
+
+          try {
+            const result = await verificationRequest(
+              "result",
+              resultUid,
+              { position }
+            );
+
+            await sendMessage(chatId, result, keyboard);
+          } catch (error) {
+            console.error("RESULT ERROR:", error);
+
+            await sendMessage(
+              chatId,
+              "⚠️ Result service error.\n\n" +
+                (error?.message || "Unknown error"),
+              keyboard
+            );
+          }
+        }
       }
     } else {
       await sendMessage(
