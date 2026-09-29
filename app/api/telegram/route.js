@@ -311,6 +311,43 @@ ${FORM_URL}`,
                       "\n\n🎉 Congratulations! Your BattleArena registration has been verified.\n\n📅 18 October 2026\n⏰ 8:00 PM IST",
                     keyboard
                   );
+
+                  try {
+                    const referralResult = await verificationRequest(
+                      "verifyreferral",
+                      "",
+                      { referred: String(playerChatId) }
+                    );
+
+                    console.log(
+                      "REFERRAL VERIFICATION RESULT:",
+                      referralResult
+                    );
+
+                    if (referralResult.startsWith("REFERRAL_VERIFIED|")) {
+                      const parts = referralResult.split("|");
+                      const referrerChatId = parts[1] || "";
+                      const verifiedCount = parts[2] || "0";
+
+                      if (referrerChatId) {
+                        await sendMessage(
+                          referrerChatId,
+                          "🎉 Referral Verified!\n\n" +
+                            "A player you referred has completed registration verification.\n\n" +
+                            "👥 Verified Referrals: " +
+                            verifiedCount +
+                            "\n🏅 Level: " +
+                            "updated",
+                          keyboard
+                        );
+                      }
+                    }
+                  } catch (referralError) {
+                    console.error(
+                      "REFERRAL VERIFICATION ERROR:",
+                      referralError
+                    );
+                  }
                 }
               } catch (playerError) {
                 console.error(
