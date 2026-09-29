@@ -103,8 +103,8 @@ const keyboard = {
   keyboard: [
     ["🎮 Tournaments", "📝 Register"],
     ["🏆 Leaderboard", "🎁 Rewards"],
-    ["👕 Merchandise", "📜 Rules"],
-    ["❓ Help"],
+    ["🎁 Refer & Earn", "👕 Merchandise"],
+    ["📜 Rules", "❓ Help"],
   ],
   resize_keyboard: true,
 };
@@ -124,6 +124,10 @@ export async function POST(req) {
 
     if (text.startsWith("/start")) {
       const username = message?.from?.username || "";
+      const startPayload = text.split(/\s+/)[1] || "";
+      const referrerChatId = startPayload.startsWith("ref_")
+        ? startPayload.slice(4)
+        : "";
 
       if (username) {
         try {
@@ -133,6 +137,22 @@ export async function POST(req) {
           });
         } catch (saveError) {
           console.error("SAVE USER ERROR:", saveError);
+        }
+      }
+
+      if (referrerChatId) {
+        try {
+          const referralResult = await verificationRequest(
+            "savereferral",
+            "",
+            {
+              referrer: referrerChatId,
+              referred: String(chatId),
+            }
+          );
+          console.log("REFERRAL RESULT:", referralResult);
+        } catch (referralError) {
+          console.error("REFERRAL SAVE ERROR:", referralError);
         }
       }
 
@@ -174,6 +194,41 @@ ${FORM_URL}`,
         "🎁 BattleArena Rewards\n\n🥇 1st Place — Champion Title + Champion Badge + Special Reward\n🥈 2nd Place — Runner-Up Badge + Special Reward\n🥉 3rd Place — 3rd Place Badge + Special Reward\n\n⭐ Bonus: Best Performance & Special Achievement rewards\n\n⚠️ Final rewards tournament announcement में officially confirm होंगे.",
         keyboard
       );
+    } else if (text === "🎁 Refer & Earn") {
+      try {
+        const info = await verificationRequest(
+          "referralinfo",
+          "",
+          { chatId: String(chatId) }
+        );
+
+        const referralLink =
+          "https://t.me/TheBattleArena_bot?start=ref_" +
+          String(chatId);
+
+        await sendMessage(
+          chatId,
+          info +
+            "\n\n🔗 Your Referral Link:\n" +
+            referralLink +
+            "\n\n📌 Referral tabhi count hoga jab referred player registration/verification complete kare.",
+          keyboard
+        );
+      } catch (error) {
+        console.error("REFERRAL INFO ERROR:", error);
+
+        const referralLink =
+          "https://t.me/TheBattleArena_bot?start=ref_" +
+          String(chatId);
+
+        await sendMessage(
+          chatId,
+          "🎁 BattleArena Referral\n\n🔗 Your Referral Link:\n" +
+            referralLink +
+            "\n\n👥 Verified referrals: backend sync pending.",
+          keyboard
+        );
+      }
     } else if (text === "👕 Merchandise") {
       await sendMessage(
         chatId,
