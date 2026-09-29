@@ -196,14 +196,19 @@ ${FORM_URL}`,
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
-        const uid = text
+        const verifyArgs = text
           .replace(/^\/(?:verify)(?:@[^\s]+)?/i, "")
-          .trim();
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+        const uid = verifyArgs[0] || "";
+        const directPlayerChatId = verifyArgs[1] || "";
 
         if (!uid) {
           await sendMessage(
             chatId,
-            "🔐 Verify Registration\n\nUsage:\n/verify BGMI_UID",
+            "🔐 Verify Registration\n\nUsage:\n/verify BGMI_UID [PLAYER_CHAT_ID]",
             keyboard
           );
         } else {
@@ -238,7 +243,8 @@ ${FORM_URL}`,
               );
 
               try {
-                const playerChatId = await getPlayerChatId(uid);
+                const playerChatId =
+                  directPlayerChatId || (await getPlayerChatId(uid));
 
                 if (
                   playerChatId &&
