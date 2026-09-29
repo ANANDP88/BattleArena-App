@@ -667,7 +667,7 @@ ${FORM_URL}`,
           keyboard
         );
 
-        for (const adminId of await getCurrentAdminIds()) {
+        for (const adminId of ADMIN_IDS) {
           if (adminId !== String(chatId)) {
             try {
               await sendMessage(
