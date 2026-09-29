@@ -1,1 +1,87 @@
-*{box-sizing:border-box}body{margin:0;background:#090909;color:#fff;font-family:Arial,sans-serif}main{max-width:900px;margin:auto;padding:24px}button{padding:12px 18px;border-radius:10px;border:0;cursor:pointer}.card{background:#171717;padding:18px;border-radius:14px;margin:12px 0}
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Teko:wght@400;500;600;700&display=swap');
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#05070d;color:#fff;font-family:'Rajdhani',Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+button{font-family:'Teko','Rajdhani',sans-serif}
+main.app{max-width:1100px;margin:auto;padding:0 18px}
+
+.hero{min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;padding:70px 20px;background:radial-gradient(circle at 20% 15%,rgba(255,215,0,.12),transparent 28%),radial-gradient(circle at 80% 20%,rgba(0,170,255,.09),transparent 30%),linear-gradient(180deg,#080b13 0%,#05070d 100%)}
+.heroContent{max-width:760px}
+.badge,.sectionTitle>span,.simpleCard>span,.referralCard>span{font-weight:800;letter-spacing:2px;color:#ffd21f}
+h1,h2,h3{font-family:'Teko','Rajdhani',sans-serif;margin:0}
+.hero h1{font-size:clamp(54px,10vw,88px);line-height:.95;margin:14px 0}
+.hero p{font-size:19px;color:#aeb7c7;max-width:620px;margin:18px auto 28px}
+.heroButtons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.primaryBtn,.secondaryBtn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border-radius:11px;font-weight:800}
+.primaryBtn{background:#ffd21f;color:#080808}
+.secondaryBtn{background:#151b27;border:1px solid #293244;color:#e9edf5}
+
+.section{padding:52px 0}
+.sectionTitle{text-align:center;margin-bottom:24px}
+.sectionTitle h2{font-size:40px;margin-top:5px}
+.sectionIntro{color:#8f99aa;margin:8px auto 0;max-width:620px}
+.tournamentGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.tournamentCard{background:linear-gradient(180deg,#111722,#0b0f17);border:1px solid #222b3b;border-radius:17px;padding:20px;position:relative;overflow:hidden}
+.gameIcon{font-size:38px;margin-bottom:10px}
+.status{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid;font-size:12px;font-weight:900;letter-spacing:.5px}
+.statusOpen{background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3);color:#4ee58a;box-shadow:0 0 14px rgba(46,204,113,.08)}
+.statusClosed{background:rgba(105,112,124,.09);border-color:rgba(126,134,148,.16);color:#7f8795}
+.tournamentCard h3{font-size:30px;line-height:1.05;margin:16px 0 12px}
+
+.countdown{margin:10px 0 16px;padding:12px 14px;border:1px solid rgba(255,82,82,.38);border-radius:13px;background:linear-gradient(135deg,rgba(255,38,38,.16),rgba(42,7,10,.9));text-align:center;box-shadow:0 0 18px rgba(255,38,38,.08)}
+.countdown small{display:block;color:#ff8585;font-weight:900;letter-spacing:1.2px}
+.countdown strong{display:block;margin:4px 0;color:#ff5a5a;font-family:'Teko','Rajdhani',sans-serif;font-size:28px;line-height:1.05;letter-spacing:.6px}
+.countdown span{display:block;color:#aeb7c7;font-size:12px}
+
+.prizeBreakdown{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"first first" "second third";gap:10px;margin:0 0 20px;padding:12px;background:rgba(7,10,17,.72);border:1px solid #1f2737;border-radius:14px}
+.prizeBreakdown div{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:11px 6px;border-radius:11px;background:linear-gradient(180deg,rgba(20,25,38,.95),rgba(10,14,23,.95));border:1px solid #252d40;text-align:center}
+.prizeBreakdown div:nth-child(1){grid-area:first;border-color:rgba(255,210,31,.42);background:linear-gradient(180deg,rgba(255,210,31,.12),rgba(15,18,28,.96))}
+.prizeBreakdown div:nth-child(2){grid-area:second;border-color:rgba(190,198,214,.28)}
+.prizeBreakdown div:nth-child(3){grid-area:third;border-color:rgba(184,115,51,.32)}
+.prizeBreakdown span{font-size:11px;font-weight:800;letter-spacing:.4px;color:#9aa3b4;white-space:nowrap}
+.prizeBreakdown div:nth-child(1) span,.prizeBreakdown div:nth-child(1) strong{color:#ffd21f}
+.prizeBreakdown div:nth-child(2) strong{color:#dce2ec}
+.prizeBreakdown div:nth-child(3) strong{color:#d6a06b}
+.prizeBreakdown strong{font-family:'Teko','Rajdhani',sans-serif;font-size:21px;line-height:1;white-space:nowrap}
+
+.info{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.info>div{background:#0a0e16;border:1px solid #1d2534;border-radius:10px;padding:9px;text-align:center}
+.info small{display:block;color:#6f798b;font-size:10px;font-weight:800}
+.info strong{display:block;margin-top:3px;color:#e8ecf4;font-size:14px}
+.registerBtn{width:100%;margin-top:18px;padding:14px;border:0;border-radius:11px;background:#ffd21f;color:#080808;font-weight:900;font-size:16px;cursor:pointer;transition:transform .2s ease,filter .2s ease}
+.registerBtn:not(:disabled):hover{transform:translateY(-1px);filter:brightness(1.05)}
+.registerBtn:disabled{background:#2b303a;color:#747c89;border:1px solid #3a414d;cursor:not-allowed;box-shadow:none;opacity:1}
+.registerBtn:disabled:hover{transform:none}
+
+.sponsorGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.sponsorCard,.simpleCard,.referralCard{background:#0d121b;border:1px solid #202a3a;border-radius:15px;padding:18px;text-align:center}
+.sponsorLogo{display:grid;place-items:center;width:54px;height:54px;margin:0 auto 10px;border-radius:12px;background:#182031;color:#ffd21f;font-weight:900}
+.sponsorCard strong{display:block}.sponsorCard small{display:block;color:#727d90;margin-top:4px}.sponsorContact{display:inline-block;margin-top:10px;color:#ffd21f;font-weight:800}
+.simpleCard p,.referralCard p{color:#8f99aa}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.levels div{background:#111722;border:1px solid #242d3e;border-radius:10px;padding:10px}
+.levels b,.levels small{display:block}.levels small{color:#7e8899;margin-top:3px}
+
+footer{text-align:center;padding:38px 0 50px;border-top:1px solid #171e2a;color:#8b95a7}
+footer strong{color:#ffd21f;font-size:20px}
+footer p{margin:7px 0}
+
+@media(max-width:760px){
+  main.app{padding:0 12px}
+  .hero{min-height:500px;padding:60px 12px}
+  .hero p{font-size:17px}
+  .tournamentGrid{grid-template-columns:1fr}
+  .sponsorGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .levels{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:380px){
+  .prizeBreakdown{gap:7px;padding:9px}
+  .prizeBreakdown div{padding:10px 4px}
+  .prizeBreakdown strong{font-size:19px}
+  .prizeBreakdown span{font-size:10px}
+  .info{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sponsorGrid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.registerBtn{transition:none}}
