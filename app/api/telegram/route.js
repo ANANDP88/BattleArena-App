@@ -3,7 +3,7 @@ const FORM_URL =
   "https://forms.gle/SVmsQFFab3PReLYXA";
 
 const GOOGLE_APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxS63QwMwXgUl0K_UUW-LBbBUwpZcbY7Y5lbCxyn8XSesOL7DLW0Drh9LQlL4u8m9Gv/exec";
+  "https://script.google.com/macros/s/AKfycbxskv_7MmRuKMOOYs-LsKKZpg5QF_PQC-AxCMEbGb9JXXgjlj7SvLAoOFmKe4-DfKmJ/exec";
 
 const BROADCAST_CHANNEL = "@battlearenaS2";
 
