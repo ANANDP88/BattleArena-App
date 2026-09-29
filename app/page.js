@@ -19,7 +19,7 @@ const tournaments = [
     title: "BattleArena Free Fire Tournament",
     mode: "Squad",
     entry: "FREE",
-    prize: "1XXX",
+    prize: "XXX",
     status: "Registration CLOSED",
     open: false,
   },
@@ -167,19 +167,11 @@ export default function Home() {
 
               <h3>{tournament.title}</h3>
 
-              {tournament.game === "BGMI" ? (
-                <div className="prizeBreakdown">
-                  <div><span>🥇 1st</span><strong>₹3,000</strong></div>
-                  <div><span>🥈 2nd</span><strong>₹1,500</strong></div>
-                  <div><span>🥉 3rd</span><strong>₹500</strong></div>
-                </div>
-              ) : (
-                <div className="mysteryPrize">
-                  <span>🎁 MYSTERY PRIZE</span>
-                  <strong>1XXX</strong>
-                  <small>Prize reveal coming soon</small>
-                </div>
-              )}
+              <div className="prizeBreakdown">
+                <div><span>🥇 1st</span><strong>{tournament.game === "BGMI" ? "₹3,000" : "XXX"}</strong></div>
+                <div><span>🥈 2nd</span><strong>{tournament.game === "BGMI" ? "₹1,500" : "XXX"}</strong></div>
+                <div><span>🥉 3rd</span><strong>{tournament.game === "BGMI" ? "₹500" : "XXX"}</strong></div>
+              </div>
 
               <div className="info">
                 <div>
