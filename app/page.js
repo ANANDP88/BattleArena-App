@@ -6,11 +6,12 @@ const tournaments = [
   {
     game: "BGMI",
     icon: "🎯",
-    title: "BattleArena BGMI Tournament",
+    title: "BattleArena BGMI — Dussehra Special",
     mode: "Squad",
     entry: "FREE",
-    prize: "Coming Soon",
-    status: "Registration Soon",
+    prize: "Special Rewards",
+    status: "Registration OPEN",
+    open: true,
   },
   {
     game: "Free Fire",
@@ -19,7 +20,8 @@ const tournaments = [
     mode: "Squad",
     entry: "FREE",
     prize: "Coming Soon",
-    status: "Registration Soon",
+    status: "Registration CLOSED",
+    open: false,
   },
 ];
 
@@ -27,6 +29,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
 
   function register(game) {
+    if (game !== "BGMI") return;
     window.open(
       "https://docs.google.com/forms/d/e/1FAIpQLScyEVnRrzlkI4rS_hkmPOS7PGnvKOJP7IPZkEzNPLmXROxV1A/viewform?usp=publish-editor",
       "_blank"
@@ -112,8 +115,9 @@ export default function Home() {
               <button
                 className="registerBtn"
                 onClick={() => register(tournament.game)}
+                disabled={!tournament.open}
               >
-                📝 Register
+                {tournament.open ? "📝 Register Now" : "🔒 Registration Closed"}
               </button>
             </article>
           ))}
