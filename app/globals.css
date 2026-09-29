@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap');
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;padding:0;background:#05070d;color:#f7f8fb;font-family:Inter,Arial,sans-serif}
+body {margin:0;padding:0;background:#05070d;color:#f7f8fb;font-family:Inter,Arial,sans-serif}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 0%,rgba(255,215,0,.08),transparent 30%),radial-gradient(circle at 90% 20%,rgba(0,170,255,.06),transparent 28%);z-index:-1}
 .app{min-height:100vh;background:linear-gradient(180deg,#05070d 0%,#080b13 55%,#05070d 100%);overflow:hidden}
 .hero{position:relative;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 20px;isolation:isolate}
@@ -46,3 +48,7 @@ footer p{margin:8px 0 4px}
 @media(max-width:700px){.hero{min-height:570px;padding:60px 16px}.heroContent{padding:15px}.hero h1{letter-spacing:-1px}.section{padding:40px 15px}.tournamentGrid{grid-template-columns:1fr}.levels{grid-template-columns:1fr 1fr}.simpleCard,.referralCard,.tournamentCard{padding:20px}}
 @media(max-width:380px){.heroButtons{flex-direction:column}.primaryBtn,.secondaryBtn{width:100%}.levels{grid-template-columns:1fr}.info{gap:8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.primaryBtn,.secondaryBtn,.registerBtn{transition:none}}
+
+
+body { font-family: 'Rajdhani', system-ui, sans-serif; }
+h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Orbitron', 'Rajdhani', system-ui, sans-serif; }
