@@ -4,7 +4,7 @@ const FORM_URL =
 const GOOGLE_APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxEdKbjDYR9r6MQlZnVDKfwceZaNS88IJaMQ9vfTmh7ADlRAFezJe6EzAM42cDN04BJ/exec";
 
-const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "")
+const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969")
   .split(",")
   .map((id) => id.trim())
   .filter(Boolean);
