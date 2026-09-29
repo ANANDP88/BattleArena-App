@@ -39,7 +39,13 @@ async function verificationRequest(action, uid) {
     throw new Error(`Verification service returned HTTP ${response.status}`);
   }
 
-  return response.text();
+  const result = await response.text();
+
+  if (!result || !result.trim()) {
+    throw new Error("Verification service returned an empty response.");
+  }
+
+  return result;
 }
 
 const keyboard = {
@@ -133,8 +139,19 @@ ${FORM_URL}`,
             keyboard
           );
         } else {
-          const result = await verificationRequest("verify", uid);
-          await sendMessage(chatId, result, keyboard);
+          try {
+            const result = await verificationRequest("verify", uid);
+            await sendMessage(chatId, result, keyboard);
+          } catch (error) {
+            console.error("VERIFY ERROR:", error);
+            await sendMessage(
+              chatId,
+              "⚠️ Verification service error.\n\n" +
+                "UID: " + uid + "\n" +
+                "Error: " + (error?.message || "Unknown error"),
+              keyboard
+            );
+          }
         }
       }
     } else if (text === "/reject" || text.startsWith("/reject ")) {
@@ -150,8 +167,19 @@ ${FORM_URL}`,
             keyboard
           );
         } else {
-          const result = await verificationRequest("reject", uid);
-          await sendMessage(chatId, result, keyboard);
+          try {
+            const result = await verificationRequest("reject", uid);
+            await sendMessage(chatId, result, keyboard);
+          } catch (error) {
+            console.error("REJECT ERROR:", error);
+            await sendMessage(
+              chatId,
+              "⚠️ Verification service error.\n\n" +
+                "UID: " + uid + "\n" +
+                "Error: " + (error?.message || "Unknown error"),
+              keyboard
+            );
+          }
         }
       }
     } else if (text === "/myid") {
