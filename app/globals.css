@@ -70,9 +70,9 @@ h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Tek
 @media(max-width:480px){.sponsorGrid{grid-template-columns:1fr 1fr;gap:10px}.sponsorCard{min-height:155px;padding:14px}.sponsorLogo{width:68px;height:68px;font-size:23px;border-radius:16px}.sponsorCard strong{font-size:16px}}
 
 
-.countdown{margin:10px 0 16px;padding:12px 14px;border:1px solid rgba(255,210,31,.22);border-radius:13px;background:linear-gradient(135deg,rgba(255,210,31,.08),rgba(8,12,20,.85));text-align:center}
+.countdown{margin:10px 0 16px;padding:12px 14px;border:1px solid rgba(255,82,82,.38);border-radius:13px;background:linear-gradient(135deg,rgba(255,38,38,.16),rgba(42,7,10,.9));text-align:center;box-shadow:0 0 18px rgba(255,38,38,.08)}
 .countdown small{display:block;color:#8f98aa;font-size:9px;letter-spacing:1.2px;font-weight:800}
-.countdown strong{display:block;margin:4px 0;color:#ffd21f;font-family:'Teko','Rajdhani',sans-serif;font-size:28px;line-height:1}
+.countdown strong{display:block;margin:4px 0;color:#ff5a5a;font-family:'Teko','Rajdhani',sans-serif;font-size:28px;line-height:1}
 .countdown span{display:block;color:#737d90;font-size:10px}
 
 
