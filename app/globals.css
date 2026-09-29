@@ -89,4 +89,5 @@ h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Tek
 .prizeBreakdown div:nth-child(2){grid-area:second}
 .prizeBreakdown div:nth-child(3){grid-area:third}
 
-.status:has(+ .tournamentCard){} 
+.statusClosed{background:rgba(105,112,124,.09);border-color:rgba(126,134,148,.16);color:#7f8795}
+.statusOpen{background:rgba(255,210,31,.1);border-color:rgba(255,210,31,.18);color:#ffd84a}
