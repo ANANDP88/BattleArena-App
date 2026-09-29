@@ -30,22 +30,35 @@ async function verificationRequest(action, uid) {
   const url =
     `${GOOGLE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&uid=${encodeURIComponent(uid)}`;
 
-  const response = await fetch(url, {
-    method: "GET",
-    redirect: "follow",
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
 
-  if (!response.ok) {
-    throw new Error(`Verification service returned HTTP ${response.status}`);
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Verification service returned HTTP ${response.status}`);
+    }
+
+    const result = await response.text();
+
+    if (!result || !result.trim()) {
+      throw new Error("Verification service returned an empty response.");
+    }
+
+    return result;
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      throw new Error("Verification service timed out after 8 seconds.");
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
   }
-
-  const result = await response.text();
-
-  if (!result || !result.trim()) {
-    throw new Error("Verification service returned an empty response.");
-  }
-
-  return result;
 }
 
 const keyboard = {
@@ -190,11 +203,7 @@ ${FORM_URL}`,
       );
     } else if (text.startsWith("/result ")) {
       if (!ADMIN_IDS.includes(String(chatId))) {
-        await sendMessage(
-          chatId,
-          "⛔ Admin access required.",
-          keyboard
-        );
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         await sendMessage(
           chatId,
@@ -213,11 +222,7 @@ ${FORM_URL}`,
     return Response.json({ ok: true });
   } catch (error) {
     console.error(error);
-
-    return Response.json(
-      { ok: false },
-      { status: 500 }
-    );
+    return Response.json({ ok: false }, { status: 500 });
   }
 }
 
