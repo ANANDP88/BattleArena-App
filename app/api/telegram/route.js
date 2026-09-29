@@ -1,6 +1,9 @@
 const FORM_URL =
   "https://forms.gle/SVmsQFFab3PReLYXA";
 
+const GOOGLE_APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxEdKbjDYR9r6MQlZnVDKfwceZaNS88IJaMQ9vfTmh7ADlRAFezJe6EzAM42cDN04BJ/exec";
+
 const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "")
   .split(",")
   .map((id) => id.trim())
@@ -21,6 +24,22 @@ async function sendMessage(chatId, text, keyboard) {
       }),
     }
   );
+}
+
+async function verificationRequest(action, uid) {
+  const url =
+    `${GOOGLE_APPS_SCRIPT_URL}?action=${encodeURIComponent(action)}&uid=${encodeURIComponent(uid)}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    redirect: "follow",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Verification service returned HTTP ${response.status}`);
+  }
+
+  return response.text();
 }
 
 const keyboard = {
@@ -98,15 +117,43 @@ ${FORM_URL}`,
     } else if (text === "❓ Help") {
       await sendMessage(
         chatId,
-        "❓ BattleArena Help\n\n🎮 Tournament → Upcoming match\n📝 Register → Registration form\n🏆 Leaderboard → Results\n🎁 Rewards → Rewards information\n👕 Merchandise → BattleArena products\n\n🔐 /verify → Registration verification\n🆔 /myid → Your Telegram ID",
+        "❓ BattleArena Help\n\n🎮 Tournament → Upcoming match\n📝 Register → Registration form\n🏆 Leaderboard → Results\n🎁 Rewards → Rewards information\n👕 Merchandise → BattleArena products\n\n🔐 /verify UID → Verify registration\n❌ /reject UID → Reject registration\n🆔 /myid → Your Telegram ID",
         keyboard
       );
-    } else if (text === "/verify") {
-      await sendMessage(
-        chatId,
-        "✅ Registration Verification\n\nAapka Telegram account verification ke liye receive ho gaya.\n\n⚠️ Final verification admin registration sheet se confirm karega.",
-        keyboard
-      );
+    } else if (text === "/verify" || text.startsWith("/verify ")) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        const uid = text.slice("/verify".length).trim();
+
+        if (!uid) {
+          await sendMessage(
+            chatId,
+            "🔐 Verify Registration\n\nUsage:\n/verify BGMI_UID",
+            keyboard
+          );
+        } else {
+          const result = await verificationRequest("verify", uid);
+          await sendMessage(chatId, result, keyboard);
+        }
+      }
+    } else if (text === "/reject" || text.startsWith("/reject ")) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        const uid = text.slice("/reject".length).trim();
+
+        if (!uid) {
+          await sendMessage(
+            chatId,
+            "❌ Reject Registration\n\nUsage:\n/reject BGMI_UID",
+            keyboard
+          );
+        } else {
+          const result = await verificationRequest("reject", uid);
+          await sendMessage(chatId, result, keyboard);
+        }
+      }
     } else if (text === "/myid") {
       await sendMessage(
         chatId,
