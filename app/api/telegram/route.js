@@ -207,7 +207,7 @@ ${FORM_URL}`,
 
         await sendMessage(
           chatId,
-          "🏆 BattleArena Leaderboard\n\n🥇 1st — Pending\n🥈 2nd — Pending\n🥉 3rd — Pending",
+          "🏆 BattleArena Leaderboard\n\n🥇 1. BA TEST TEAM — UID 226019\n\n📌 Result saved: 1st Place",
           keyboard
         );
       }
