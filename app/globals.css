@@ -1,191 +1,48 @@
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background: #07090f;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-}
-
-.app {
-  min-height: 100vh;
-  background: #07090f;
-  padding: 20px;
-}
-
-.hero {
-  text-align: center;
-  padding: 50px 15px;
-}
-
-.badge {
-  color: #ffd700;
-  font-weight: bold;
-}
-
-.hero h1 {
-  font-size: 42px;
-  margin: 15px 0;
-}
-
-.hero p {
-  color: #aaa;
-}
-
-.heroButtons {
-  margin-top: 25px;
-}
-
-.primaryBtn,
-.secondaryBtn {
-  display: inline-block;
-  padding: 12px 16px;
-  margin: 5px;
-  border-radius: 10px;
-  text-decoration: none;
-}
-
-.primaryBtn {
-  background: #ffd700;
-  color: #000;
-}
-
-.secondaryBtn {
-  background: #151a28;
-  color: #fff;
-}
-
-.section {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 30px 15px;
-}
-
-.sectionTitle span,
-.simpleCard span,
-.referralCard > span {
-  color: #ffd700;
-  font-weight: bold;
-}
-
-.tournamentGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
-.tournamentCard,
-.simpleCard,
-.referralCard {
-  background: #111625;
-  border: 1px solid #293147;
-  border-radius: 18px;
-  padding: 20px;
-}
-
-.gameIcon {
-  font-size: 40px;
-}
-
-.status {
-  display: inline-block;
-  margin: 10px 0;
-  padding: 6px 9px;
-  background: #20283a;
-  color: #ffd700;
-  border-radius: 6px;
-  font-size: 12px;
-}
-
-.info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.info div {
-  background: #0b0f18;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.info small {
-  display: block;
-  color: #777;
-  font-size: 10px;
-}
-
-.registerBtn {
-  width: 100%;
-  margin-top: 18px;
-  padding: 13px;
-  border: 0;
-  border-radius: 10px;
-  background: #ffd700;
-  color: #000;
-  font-weight: bold;
-}
-
-.notice {
-  margin-top: 18px;
-  padding: 12px;
-  background: #172033;
-  border-radius: 10px;
-}
-
-.referralCard p,
-.simpleCard p {
-  color: #aaa;
-  line-height: 1.6;
-}
-
-.levels {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.levels div {
-  background: #0b0f18;
-  padding: 15px 8px;
-  text-align: center;
-  border-radius: 10px;
-}
-
-.levels b,
-.levels small {
-  display: block;
-}
-
-.levels small {
-  color: #888;
-  margin-top: 5px;
-}
-
-footer {
-  text-align: center;
-  padding: 40px 15px;
-  color: #888;
-}
-
-footer strong {
-  color: #ffd700;
-}
-
-@media (max-width: 650px) {
-  .tournamentGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .levels {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;padding:0;background:#05070d;color:#f7f8fb;font-family:Inter,Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 0%,rgba(255,215,0,.08),transparent 30%),radial-gradient(circle at 90% 20%,rgba(0,170,255,.06),transparent 28%);z-index:-1}
+.app{min-height:100vh;background:linear-gradient(180deg,#05070d 0%,#080b13 55%,#05070d 100%);overflow:hidden}
+.hero{position:relative;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 20px;isolation:isolate}
+.heroImage{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.heroImage img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.heroOverlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,5,10,.25),rgba(3,5,10,.82) 78%,#05070d 100%),linear-gradient(90deg,rgba(3,5,10,.7),transparent 55%)}
+.heroContent{width:min(850px,100%);padding:30px}
+.badge{display:inline-flex;padding:8px 14px;border:1px solid rgba(255,215,0,.4);border-radius:999px;background:rgba(10,12,18,.65);backdrop-filter:blur(10px);color:#ffd84a;font-weight:800;letter-spacing:1.5px;font-size:13px}
+.hero h1{font-size:clamp(42px,7vw,76px);line-height:1;margin:20px 0 16px;font-weight:900;letter-spacing:-2px;text-shadow:0 8px 35px rgba(0,0,0,.55)}
+.hero p{max-width:650px;margin:0 auto;color:#d4d8e2;font-size:clamp(16px,2.2vw,20px);line-height:1.6}
+.heroButtons{margin-top:30px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.primaryBtn,.secondaryBtn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 20px;border-radius:12px;text-decoration:none;font-weight:800;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.primaryBtn{background:#ffd21f;color:#080808;box-shadow:0 10px 30px rgba(255,210,31,.2)}
+.secondaryBtn{background:rgba(15,19,30,.75);color:#fff;border:1px solid #343b4e;backdrop-filter:blur(8px)}
+.primaryBtn:hover,.secondaryBtn:hover,.registerBtn:hover{transform:translateY(-2px)}
+.section{width:min(1080px,100%);margin:0 auto;padding:55px 20px}
+.sectionTitle{margin-bottom:24px}
+.sectionTitle span,.simpleCard span,.referralCard>span{color:#ffd21f;font-weight:900;font-size:12px;letter-spacing:1.8px}
+.sectionTitle h2,.simpleCard h2,.referralCard h2{margin:8px 0 0;font-size:clamp(25px,4vw,38px);letter-spacing:-.7px}
+.tournamentGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.tournamentCard,.simpleCard,.referralCard{position:relative;background:linear-gradient(145deg,rgba(18,23,36,.96),rgba(10,13,22,.96));border:1px solid #252d40;border-radius:20px;padding:24px;box-shadow:0 18px 50px rgba(0,0,0,.22)}
+.tournamentCard:after{content:"";position:absolute;inset:0;border-radius:20px;pointer-events:none;background:linear-gradient(135deg,rgba(255,215,0,.08),transparent 35%);opacity:.8}
+.gameIcon{font-size:46px;line-height:1}
+.status{display:inline-block;margin:14px 0 5px;padding:6px 10px;background:rgba(255,210,31,.1);border:1px solid rgba(255,210,31,.18);color:#ffd84a;border-radius:999px;font-size:11px;font-weight:800}
+.tournamentCard h3{font-size:22px;line-height:1.3;margin:10px 0 20px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info div{background:#080c14;border:1px solid #1d2433;padding:12px;border-radius:11px}
+.info small{display:block;color:#727b8f;font-size:9px;letter-spacing:1.2px;margin-bottom:4px}
+.info strong{font-size:14px}
+.registerBtn{width:100%;margin-top:18px;padding:14px;border:0;border-radius:11px;background:#ffd21f;color:#080808;font-weight:900;font-size:15px;cursor:pointer;transition:transform .2s ease,filter .2s ease}
+.notice{margin-top:18px;padding:14px 16px;background:#101827;border:1px solid #283248;border-radius:12px;color:#dce2ec}
+.simpleCard,.referralCard{padding:30px}
+.referralCard{background:linear-gradient(135deg,rgba(22,27,43,.98),rgba(11,15,26,.98))}
+.referralCard p,.simpleCard p{max-width:760px;color:#aeb6c5;line-height:1.7;font-size:16px}
+.levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:24px}
+.levels div{background:#080c14;border:1px solid #20283a;padding:16px 10px;text-align:center;border-radius:13px}
+.levels b,.levels small{display:block}
+.levels b{font-size:14px}
+.levels small{color:#7f889a;margin-top:6px;font-size:11px}
+footer{text-align:center;padding:60px 20px 35px;color:#788195;border-top:1px solid #151b28;margin-top:20px}
+footer strong{color:#ffd21f;font-size:20px}
+footer p{margin:8px 0 4px}
+@media(max-width:700px){.hero{min-height:570px;padding:60px 16px}.heroContent{padding:15px}.hero h1{letter-spacing:-1px}.section{padding:40px 15px}.tournamentGrid{grid-template-columns:1fr}.levels{grid-template-columns:1fr 1fr}.simpleCard,.referralCard,.tournamentCard{padding:20px}}
+@media(max-width:380px){.heroButtons{flex-direction:column}.primaryBtn,.secondaryBtn{width:100%}.levels{grid-template-columns:1fr}.info{gap:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.primaryBtn,.secondaryBtn,.registerBtn{transition:none}}
