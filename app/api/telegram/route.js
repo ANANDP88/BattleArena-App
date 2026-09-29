@@ -58,7 +58,7 @@ async function verificationRequest(action, uid, extra = {}) {
   const url = `${GOOGLE_APPS_SCRIPT_URL}?${params.toString()}`;
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 20000);
+  const timeout = setTimeout(() => controller.abort(), 45000);
 
   try {
     const response = await fetch(url, {
@@ -95,7 +95,7 @@ async function verificationRequest(action, uid, extra = {}) {
     return trimmed;
   } catch (error) {
     if (error?.name === "AbortError") {
-      throw new Error("Verification service timed out after 20 seconds.");
+      throw new Error("Verification service timed out after 45 seconds.");
     }
     throw error;
   } finally {
@@ -194,6 +194,8 @@ ${FORM_URL}`,
           "",
           {}
         );
+
+        console.log("LEADERBOARD RESPONSE:", leaderboard);
 
         await sendMessage(
           chatId,
