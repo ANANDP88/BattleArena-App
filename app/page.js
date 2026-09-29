@@ -114,19 +114,16 @@ export default function Home() {
           <div className="sponsorCard">
             <div className="sponsorLogo sponsorOne">PX</div>
             <strong>PixelX Gaming</strong>
-            <small>Potential Partner</small>
           </div>
 
           <div className="sponsorCard">
             <div className="sponsorLogo sponsorTwo">NF</div>
             <strong>NextFrame Esports</strong>
-            <small>Potential Partner</small>
           </div>
 
           <div className="sponsorCard">
             <div className="sponsorLogo sponsorThree">GG</div>
             <strong>GameGrid Arena</strong>
-            <small>Potential Partner</small>
           </div>
 
           <div className="sponsorCard sponsorEmpty">
