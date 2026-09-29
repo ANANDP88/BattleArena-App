@@ -55,12 +55,25 @@ async function verificationRequest(action, uid) {
     }
 
     const result = await response.text();
+    const trimmed = result.trim();
 
-    if (!result || !result.trim()) {
+    if (!trimmed) {
       throw new Error("Verification service returned an empty response.");
     }
 
-    return result;
+    if (/^<!doctype html|^<html/i.test(trimmed)) {
+      throw new Error(
+        "Google verification Web App is not publicly accessible. Set Web App access to Anyone, then redeploy."
+      );
+    }
+
+    if (trimmed.length > 3500) {
+      throw new Error(
+        "Google verification service returned an unexpectedly long response."
+      );
+    }
+
+    return trimmed;
   } catch (error) {
     if (error?.name === "AbortError") {
       throw new Error("Verification service timed out after 8 seconds.");
