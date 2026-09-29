@@ -36,7 +36,7 @@ async function sendMessage(chatId, text, keyboard) {
   return data;
 }
 
-async async function getPlayerChatId(uid) {
+async function getPlayerChatId(uid) {
   const result = await verificationRequest("getChatId", uid);
   if (!result || result === "CHAT_ID_NOT_FOUND") return "";
   return result.trim();
@@ -54,7 +54,7 @@ function verificationRequest(action, uid, extra = {}) {
   const url = `${GOOGLE_APPS_SCRIPT_URL}?${params.toString()}`;
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000);
+  const timeout = setTimeout(() => controller.abort(), 20000);
 
   try {
     const response = await fetch(url, {
@@ -87,7 +87,7 @@ function verificationRequest(action, uid, extra = {}) {
     return trimmed;
   } catch (error) {
     if (error?.name === "AbortError") {
-      throw new Error("Verification service timed out after 8 seconds.");
+      throw new Error("Verification service timed out after 20 seconds.");
     }
     throw error;
   } finally {
