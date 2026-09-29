@@ -183,11 +183,27 @@ ${FORM_URL}`,
         keyboard
       );
     } else if (text === "🏆 Leaderboard") {
-      await sendMessage(
-        chatId,
-        "🏆 BattleArena Leaderboard\n\n📊 Tournament results will appear here after the match.\n\n🥇 1st — Pending\n🥈 2nd — Pending\n🥉 3rd — Pending",
-        keyboard
-      );
+      try {
+        const leaderboard = await verificationRequest(
+          "leaderboard",
+          "",
+          {}
+        );
+
+        await sendMessage(
+          chatId,
+          leaderboard || "🏆 Leaderboard\n\nNo results published yet.",
+          keyboard
+        );
+      } catch (error) {
+        console.error("LEADERBOARD ERROR:", error);
+
+        await sendMessage(
+          chatId,
+          "🏆 BattleArena Leaderboard\n\n🥇 1st — Pending\n🥈 2nd — Pending\n🥉 3rd — Pending",
+          keyboard
+        );
+      }
     } else if (text === "🎁 Rewards") {
       await sendMessage(
         chatId,
