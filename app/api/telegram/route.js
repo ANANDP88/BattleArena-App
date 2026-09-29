@@ -7,56 +7,6 @@ const GOOGLE_APPS_SCRIPT_URL =
 
 const BROADCAST_CHANNEL = "@battlearenaS2";
 
-const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969,6703996214")
-  .split(",")
-  .map((id) => id.trim())
-  .filter(Boolean);
-
-let adminCache = {
-  ids: ADMIN_IDS,
-  expiresAt: 0,
-};
-
-async function getCurrentAdminIds() {
-  if (Date.now() < adminCache.expiresAt) return adminCache.ids;
-
-  try {
-    const raw = await verificationRequest("getAdmins", "");
-    const ids = raw
-      .split(/\r?\n/)
-      .map((id) => id.trim())
-      .filter((id) => /^-?\d+$/.test(id));
-
-    adminCache = {
-      ids: Array.from(new Set([...ADMIN_IDS, ...ids])),
-      expiresAt: Date.now() + 60000,
-    };
-  } catch (error) {
-    console.error("GET ADMINS ERROR:", error);
-    adminCache = {
-      ids: ADMIN_IDS,
-      expiresAt: Date.now() + 15000,
-    };
-  }
-
-  return adminCache.ids;
-}
-
-async function isAdmin(chatId) {
-  const ids = await getCurrentAdminIds();
-  return ids.includes(String(chatId));
-}
-
-function adminPanelKeyboard() {
-  return {
-    keyboard: [
-      ["➕ Add Admin", "➖ Remove Admin"],
-      ["👑 Admin List", "⬅️ Main Menu"],
-    ],
-    resize_keyboard: true,
-  };
-}
-
 async function sendMessage(chatId, text, keyboard) {
   const response = await fetch(
     `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
@@ -152,7 +102,7 @@ const keyboard = {
     ["🎮 Tournaments", "📝 Register"],
     ["🏆 Leaderboard", "🎁 Rewards"],
     ["🎁 Refer & Earn", "👕 Merchandise"],
-    ["📢 Broadcast", "👑 Admin Panel"],
+    ["📢 Broadcast"],
     ["📜 Rules", "❓ Help"],
   ],
   resize_keyboard: true,
@@ -312,143 +262,8 @@ ${FORM_URL}`,
         "❓ BattleArena Help\n\n🎮 Tournament → Upcoming match\n📝 Register → Registration form\n🏆 Leaderboard → Results\n🎁 Rewards → Rewards information\n👕 Merchandise → BattleArena products\n\n🔐 /verify UID → Verify registration\n❌ /reject UID → Reject registration\n🆔 /myid → Your Telegram ID",
         keyboard
       );
-    } else if (text === "👑 Admin Panel") {
-      if (!(await isAdmin(chatId))) {
-        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
-      } else {
-        await sendMessage(
-          chatId,
-          "👑 BattleArena Admin Panel\n\nUse the buttons below to manage admins.",
-          adminPanelKeyboard()
-        );
-      }
-    } else if (text === "➕ Add Admin") {
-      if (!(await isAdmin(chatId))) {
-        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
-      } else {
-        await sendMessage(
-          chatId,
-          "➕ Add Admin\n\nUsage:\n/addadmin TELEGRAM_CHAT_ID\n\nExample:\n/addadmin 123456789",
-          adminPanelKeyboard()
-        );
-      }
-    } else if (command === "/addadmin") {
-      if (!(await isAdmin(chatId))) {
-        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
-      } else {
-        const newAdminId = text
-          .replace(/^\/addadmin(?:@[^\s]+)?/i, "")
-          .trim();
-
-        if (!/^-?\d+$/.test(newAdminId)) {
-          await sendMessage(
-            chatId,
-            "❌ Invalid Telegram Chat ID.\n\nUsage:\n/addadmin TELEGRAM_CHAT_ID",
-            adminPanelKeyboard()
-          );
-        } else {
-          try {
-            const result = await verificationRequest("addAdmin", "", {
-              chatId: newAdminId,
-            });
-            adminCache.expiresAt = 0;
-            await sendMessage(
-              chatId,
-              "✅ Admin added successfully.\n\n🆔 " + newAdminId + "\n\n" + result,
-              adminPanelKeyboard()
-            );
-          } catch (error) {
-            await sendMessage(
-              chatId,
-              "⚠️ Add admin failed.\n\n" + (error?.message || "Unknown error"),
-              adminPanelKeyboard()
-            );
-          }
-        }
-      }
-    } else if (text === "➖ Remove Admin") {
-      if (!(await isAdmin(chatId))) {
-        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
-      } else {
-        await sendMessage(
-          chatId,
-          "➖ Remove Admin\n\nUsage:\n/removeadmin TELEGRAM_CHAT_ID\n\nDo not remove the last owner/admin.",
-          adminPanelKeyboard()
-        );
-      }
-    } else if (command === "/removeadmin") {
-      if (!(await isAdmin(chatId))) {
-        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
-      } else {
-        const removeAdminId = text
-          .replace(/^\/removeadmin(?:@[^\s]+)?/i, "")
-          .trim();
-
-        if (!/^-?\d+$/.test(removeAdminId)) {
-          await sendMessage(
-            chatId,
-            "❌ Invalid Telegram Chat ID.\n\nUsage:\n/removeadmin TELEGRAM_CHAT_ID",
-            adminPanelKeyboard()
-          );
-        } else {
-          try {
-            const currentAdmins = await getCurrentAdminIds();
-            if (currentAdmins.length <= 1 && removeAdminId === String(chatId)) {
-              await sendMessage(
-                chatId,
-                "⛔ You cannot remove the last admin.",
-                adminPanelKeyboard()
-              );
-            } else {
-              const result = await verificationRequest("removeAdmin", "", {
-                chatId: removeAdminId,
-              });
-              adminCache.expiresAt = 0;
-              await sendMessage(
-                chatId,
-                "✅ Admin removed.\n\n🆔 " + removeAdminId + "\n\n" + result,
-                adminPanelKeyboard()
-              );
-            }
-          } catch (error) {
-            await sendMessage(
-              chatId,
-              "⚠️ Remove admin failed.\n\n" + (error?.message || "Unknown error"),
-              adminPanelKeyboard()
-            );
-          }
-        }
-      }
-    } else if (text === "👑 Admin List") {
-      if (!(await isAdmin(chatId))) {
-        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
-      } else {
-        try {
-          const raw = await verificationRequest("getAdmins", "");
-          const ids = raw
-            .split(/\r?\n/)
-            .map((id) => id.trim())
-            .filter((id) => /^-?\d+$/.test(id));
-
-          const list = ids.length
-            ? ids.map((id, index) => (index + 1) + ". " + id).join("\n")
-            : "No dynamic admins added yet.";
-
-          await sendMessage(
-            chatId,
-            "👑 BattleArena Admins\n\n" + list,
-            adminPanelKeyboard()
-          );
-        } catch (error) {
-          await sendMessage(
-            chatId,
-            "⚠️ Could not load admin list.\n\n" + (error?.message || "Unknown error"),
-            adminPanelKeyboard()
-          );
-        }
-      }
     } else if (command === "/reply") {
-      if (!(await isAdmin(chatId))) {
+      if (!(ADMIN_IDS.includes(String(chatId)))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         const args = text.replace(/^\/reply(?:@[^\s]+)?/i, "").trim();
@@ -478,7 +293,7 @@ ${FORM_URL}`,
     } else if (text === "⬅️ Main Menu") {
       await sendMessage(chatId, "👇 Main menu", keyboard);
     } else if (text === "📢 Broadcast") {
-      if (!await isAdmin(chatId)) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         await sendMessage(
@@ -488,7 +303,7 @@ ${FORM_URL}`,
         );
       }
     } else if (command === "/broadcast") {
-      if (!await isAdmin(chatId)) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         const broadcastText = text
@@ -553,7 +368,7 @@ ${FORM_URL}`,
         }
       }
     } else if (command === "/verify") {
-      if (!await isAdmin(chatId)) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         const verifyArgs = text
@@ -683,7 +498,7 @@ ${FORM_URL}`,
         }
       }
     } else if (command === "/approve") {
-      if (!await isAdmin(chatId)) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         const approveUid = text
@@ -718,7 +533,7 @@ ${FORM_URL}`,
         }
       }
     } else if (command === "/reject") {
-      if (!await isAdmin(chatId)) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         const uid = text
@@ -768,7 +583,7 @@ ${FORM_URL}`,
         keyboard
       );
     } else if (command === "/result") {
-      if (!await isAdmin(chatId)) {
+      if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         const resultArgs = text
