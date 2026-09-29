@@ -82,6 +82,42 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section sponsorsSection">
+        <div className="sectionTitle">
+          <span>PARTNERS</span>
+          <h2>🤝 Our Sponsors</h2>
+          <p className="sectionIntro">
+            Sponsor space for gaming brands, creators and future BattleArena partners.
+          </p>
+        </div>
+
+        <div className="sponsorGrid">
+          <div className="sponsorCard">
+            <div className="sponsorLogo sponsorOne">NOVA</div>
+            <strong>Nova Gaming</strong>
+            <small>Example Sponsor</small>
+          </div>
+
+          <div className="sponsorCard">
+            <div className="sponsorLogo sponsorTwo">XP</div>
+            <strong>XP Esports</strong>
+            <small>Example Sponsor</small>
+          </div>
+
+          <div className="sponsorCard">
+            <div className="sponsorLogo sponsorThree">GG</div>
+            <strong>GG Arena</strong>
+            <small>Example Sponsor</small>
+          </div>
+
+          <div className="sponsorCard sponsorEmpty">
+            <div className="sponsorLogo">+</div>
+            <strong>Your Brand Here</strong>
+            <small>Become a Sponsor</small>
+          </div>
+        </div>
+      </section>
+
       <section id="tournaments" className="section">
         <div className="sectionTitle">
           <span>COMPETE</span>
