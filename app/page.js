@@ -153,7 +153,7 @@ export default function Home() {
                 {tournament.icon}
               </div>
 
-              <div className="status">
+              <div className={`status ${tournament.open ? "statusOpen" : "statusClosed"}`}>
                 {tournament.status}
               </div>
 
