@@ -78,7 +78,7 @@ export async function POST(req) {
     const chatId = message?.chat?.id;
     const rawText = message?.text || "";
     const text = rawText.trim();
-    const command = text.split(/\\s+/)[0].toLowerCase().split("@")[0];
+    const command = text.split(/\s+/)[0].toLowerCase().split("@")[0];
 
     if (!chatId) {
       return Response.json({ ok: true });
