@@ -74,3 +74,16 @@ h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Tek
 .countdown small{display:block;color:#8f98aa;font-size:9px;letter-spacing:1.2px;font-weight:800}
 .countdown strong{display:block;margin:4px 0;color:#ffd21f;font-family:'Teko','Rajdhani',sans-serif;font-size:28px;line-height:1}
 .countdown span{display:block;color:#737d90;font-size:10px}
+
+
+.prizeBreakdown{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 20px;padding:12px;background:rgba(7,10,17,.72);border:1px solid #1f2737;border-radius:14px}
+.prizeBreakdown div{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:11px 6px;border-radius:11px;background:linear-gradient(180deg,rgba(20,25,38,.95),rgba(10,14,23,.95));border:1px solid #252d40;text-align:center}
+.prizeBreakdown span{font-size:11px;font-weight:800;letter-spacing:.4px;color:#9aa3b4;white-space:nowrap}
+.prizeBreakdown strong{font-family:'Teko','Rajdhani',sans-serif;font-size:21px;line-height:1;color:#f5f7fb;white-space:nowrap}
+.prizeBreakdown div:nth-child(1){border-color:rgba(255,210,31,.42);background:linear-gradient(180deg,rgba(255,210,31,.12),rgba(15,18,28,.96))}
+.prizeBreakdown div:nth-child(1) span,.prizeBreakdown div:nth-child(1) strong{color:#ffd21f}
+.prizeBreakdown div:nth-child(2){border-color:rgba(190,198,214,.28)}
+.prizeBreakdown div:nth-child(2) strong{color:#dce2ec}
+.prizeBreakdown div:nth-child(3){border-color:rgba(184,115,51,.32)}
+.prizeBreakdown div:nth-child(3) strong{color:#d6a06b}
+@media(max-width:380px){.prizeBreakdown{gap:7px;padding:9px}.prizeBreakdown div{padding:10px 4px}.prizeBreakdown strong{font-size:19px}.prizeBreakdown span{font-size:10px}}
