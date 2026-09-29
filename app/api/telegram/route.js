@@ -170,7 +170,7 @@ export async function POST(req) {
     } else if (text === "🎮 Tournaments") {
       await sendMessage(
         chatId,
-        "🏆 BattleArena BGMI — Dussehra Special\n\n🎮 BGMI\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n\n🔥 Registration is OPEN!\n📝 Register: " +
+        "🏆 BattleArena BGMI — Dussehra Special\n\n🎮 BGMI\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Total Prize Pool: ₹5,000\n🥇 1st: ₹3,000\n🥈 2nd: ₹1,500\n🥉 3rd: ₹500\n\n🔥 Registration is OPEN!\n📝 Register: " +
           FORM_URL,
         keyboard
       );
@@ -659,7 +659,7 @@ ${FORM_URL}`,
       if (/^(hi|hello|hey|hii|namaste|नमस्ते)/i.test(text)) {
         faqReply = "👋 Welcome to BattleArena!\n\n🎮 Free Fire & BGMI tournaments\n📝 Registration, results, rewards aur referrals ke liye neeche menu use karein.";
       } else if (/tournament|tourney|match|kab|date|time|when/i.test(q)) {
-        faqReply = "🏆 Upcoming Tournament\n\n🎮 BattleArena BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n\n📝 Registration OPEN hai.";
+        faqReply = "🏆 Upcoming Tournament\n\n🎮 BattleArena BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Prize Pool: ₹5,000\n🥇 1st: ₹3,000 • 🥈 2nd: ₹1,500 • 🥉 3rd: ₹500\n\n📝 Registration OPEN hai.";
       } else if (/register|registration|form|join|participate|entry/i.test(q)) {
         faqReply = "📝 Registration\n\nBattleArena BGMI Dussehra Special ke liye registration free hai.\n\n👇 Menu me 📝 Register button dabayein.";
       } else if (/free fire|ff tournament|freefire/i.test(q)) {
@@ -671,7 +671,7 @@ ${FORM_URL}`,
       } else if (/rule|rules|cheat|hack|fair play|ban/i.test(q)) {
         faqReply = "📜 Rules\n\nFair play only. Hacks/cheats allowed nahi hain. Correct UID dena aur tournament instructions follow karna zaroori hai.";
       } else if (/reward|prize|winner|1st|2nd|3rd|champion/i.test(q)) {
-        faqReply = "🎁 Rewards\n\n🥇 1st — Champion Title + Badge + Special Reward\n🥈 2nd — Runner-Up Badge + Special Reward\n🥉 3rd — 3rd Place Badge + Special Reward\n\nFinal rewards officially announce kiye jayenge.";
+        faqReply = "🎁 Rewards\n\n💰 Total Prize Pool: ₹5,000\n🥇 1st — ₹3,000 + Champion Title + Badge\n🥈 2nd — ₹1,500 + Runner-Up Badge\n🥉 3rd — ₹500 + 3rd Place Badge\n\n🏆 Full ₹5,000 prize pool distributed.";
       } else if (/refer|referral|invite|friend|bronze|silver|gold|diamond/i.test(q)) {
         faqReply = "🎁 Refer & Earn\n\nReferral optional hai. Referred player registration/verification complete karega tab referral count hoga.\n\nReferral link ke liye 🎁 Refer & Earn button use karein.";
       } else if (/history|past tournament|previous tournament|winner history/i.test(q)) {
