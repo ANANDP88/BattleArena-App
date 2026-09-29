@@ -49,10 +49,8 @@ footer p{margin:8px 0 4px}
 @media(max-width:380px){.heroButtons{flex-direction:column}.primaryBtn,.secondaryBtn{width:100%}.levels{grid-template-columns:1fr}.info{gap:8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.primaryBtn,.secondaryBtn,.registerBtn{transition:none}}
 
-
 body { font-family: 'Rajdhani', system-ui, sans-serif; }
 h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Teko', 'Rajdhani', system-ui, sans-serif; font-weight: 600; }
-
 
 .sponsorsSection{padding-top:35px}
 .sectionIntro{max-width:680px;margin:10px 0 0;color:#8f98aa;line-height:1.6}
@@ -69,12 +67,10 @@ h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Tek
 @media(max-width:850px){.sponsorGrid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.sponsorGrid{grid-template-columns:1fr 1fr;gap:10px}.sponsorCard{min-height:155px;padding:14px}.sponsorLogo{width:68px;height:68px;font-size:23px;border-radius:16px}.sponsorCard strong{font-size:16px}}
 
-
 .countdown{margin:10px 0 16px;padding:12px 14px;border:1px solid rgba(255,82,82,.38);border-radius:13px;background:linear-gradient(135deg,rgba(255,38,38,.16),rgba(42,7,10,.9));text-align:center;box-shadow:0 0 18px rgba(255,38,38,.08)}
 .countdown small{display:block;color:#8f98aa;font-size:9px;letter-spacing:1.2px;font-weight:800}
 .countdown strong{display:block;margin:4px 0;color:#ff5a5a;font-family:'Teko','Rajdhani',sans-serif;font-size:28px;line-height:1}
 .countdown span{display:block;color:#737d90;font-size:10px}
-
 
 .prizeBreakdown{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 20px;padding:12px;background:rgba(7,10,17,.72);border:1px solid #1f2737;border-radius:14px}
 .prizeBreakdown div{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:11px 6px;border-radius:11px;background:linear-gradient(180deg,rgba(20,25,38,.95),rgba(10,14,23,.95));border:1px solid #252d40;text-align:center}
@@ -88,8 +84,9 @@ h1, h2, h3, .badge, .primaryBtn, .secondaryBtn, .registerBtn { font-family: 'Tek
 .prizeBreakdown div:nth-child(3) strong{color:#d6a06b}
 @media(max-width:380px){.prizeBreakdown{gap:7px;padding:9px}.prizeBreakdown div{padding:10px 4px}.prizeBreakdown strong{font-size:19px}.prizeBreakdown span{font-size:10px}}
 
-
 .prizeBreakdown{grid-template-columns:1fr 1fr;grid-template-areas:"first first" "second third"}
 .prizeBreakdown div:nth-child(1){grid-area:first}
 .prizeBreakdown div:nth-child(2){grid-area:second}
 .prizeBreakdown div:nth-child(3){grid-area:third}
+
+.status:has(+ .tournamentCard){} 
