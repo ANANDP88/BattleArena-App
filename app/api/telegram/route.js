@@ -174,6 +174,7 @@ export async function POST(req) {
 🥉 Bronze: ₹3 per participant
 🥈 Silver: ₹5 per participant
 🥇 Gold: ₹10 per participant
+💎 Diamond: 100 verified referrals (referral level)
 📌 Final pool = (Bronze × ₹3) + (Silver × ₹5) + (Gold × ₹10)
 ⚠️ Earlier displayed prize amount is not confirmed. Final pool will be calculated after registration closes.
 Example: 10 Bronze + 20 Silver + 100 Gold = ₹1,130\n\n🔥 Registration is OPEN!\n📝 Register: " +
