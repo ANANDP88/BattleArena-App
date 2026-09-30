@@ -167,10 +167,10 @@ export default function Home() {
               {tournament.game === "BGMI" ? (
                 <div className="prizePoolNotice">
                   <strong>💰 Prize Pool: Participant-Based</strong>
-                  <span>🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 per participant</span>
-                  <small>Final prize pool = Bronze participants × ₹3 + Silver participants × ₹5 + Gold participants × ₹10.</small>
+                  <span>🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 • 💎 Diamond ₹100 per participant</span>
+                  <small>Final prize pool = Bronze participants × ₹3 + Silver participants × ₹5 + Gold participants × ₹10 + Diamond participants × ₹100.</small>
                   <small>⚠️ Earlier displayed prize amount is not confirmed. Final pool will be calculated after registration closes.</small>
-                  <small>Example: 10 Bronze + 20 Silver + 100 Gold = ₹1,130 prize pool.</small>
+                  <small>Example: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230 prize pool.</small>
                 </div>
               ) : (
                 <div className="prizePoolNotice"><strong>💰 Prize: XXX</strong></div>
