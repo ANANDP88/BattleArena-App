@@ -170,15 +170,7 @@ export async function POST(req) {
     } else if (text === "🎮 Tournaments") {
       await sendMessage(
         chatId,
-        "🏆 BattleArena BGMI — Dussehra Special\n\n🎮 BGMI\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Prize Pool: Participant-Based
-🥉 Bronze: ₹3 per participant
-🥈 Silver: ₹5 per participant
-🥇 Gold: ₹10 per participant
-💎 Diamond: ₹100 per participant
-💎 Diamond: 100 verified referrals (referral level)
-📌 Final pool = (Bronze × ₹3) + (Silver × ₹5) + (Gold × ₹10) + (Diamond × ₹100)
-⚠️ Earlier displayed prize amount is not confirmed. Final pool will be calculated after registration closes.
-Example: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230\n\n🔥 Registration is OPEN!\n📝 Register: " +
+        "🏆 BattleArena BGMI — Dussehra Special\n\n🎮 BGMI\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Prize Pool: Participant-Based\n🥉 Bronze: ₹3 per participant\n🥈 Silver: ₹5 per participant\n🥇 Gold: ₹10 per participant\n💎 Diamond: ₹100 per participant\n📌 Final pool = (Bronze × ₹3) + (Silver × ₹5) + (Gold × ₹10) + (Diamond × ₹100)\n⚠️ Earlier displayed prize amount is not confirmed. Final pool will be calculated after registration closes.\nExample: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230\n\n🔥 Registration is OPEN!\n📝 Register: " +
           FORM_URL,
         keyboard
       );
