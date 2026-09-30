@@ -252,10 +252,10 @@ ${FORM_URL}`,
 
         await sendMessage(
           chatId,
-          "🎮 Fun + 💰 Rewards — BattleArena me invite karo!\n🔥 Friends lao, compete karo, rewards unlock karo.\n⏳ Limited tournament slots — miss mat karna!\n\n🔗 Your Referral Link:\n" +
+          info +
+            "\n\n🔗 Your Referral Link:\n" +
             referralLink +
-            "\n\n📌 Referral tabhi count hoga jab referred player registration/verification complete kare.\n\n" +
-            info
+            "\n\n📌 Referral tabhi count hoga jab referred player registration/verification complete kare.",
           keyboard
         );
       } catch (error) {
@@ -659,7 +659,7 @@ ${FORM_URL}`,
       if (/^(hi|hello|hey|hii|namaste|नमस्ते)/i.test(text)) {
         faqReply = "👋 Welcome to BattleArena!\n\n🎮 Free Fire & BGMI tournaments\n📝 Registration, results, rewards aur referrals ke liye neeche menu use karein.";
       } else if (/tournament|tourney|match|kab|date|time|when/i.test(q)) {
-        faqReply = "🏆 Upcoming Tournament\n\n🎮 BattleArena BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Prize Pool: Participant-Based\n🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 • 💎 Diamond ₹100 per participant\n📌 Final pool = (Bronze × ₹3) + (Silver × ₹5) + (Gold × ₹10) + (Diamond × ₹100)\n⚠️ Earlier displayed prize amount is not confirmed.\nExample: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230\n\n📝 Registration OPEN hai.";
+        faqReply = "🏆 Upcoming Tournament\n\n🎮 BattleArena BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Prize Pool: Participant-Based\n🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 • 💎 Diamond ₹100 per participant\n📌 Final pool = (Bronze × ₹3) + (Silver × ₹5) + (Gold × ₹10) + (Diamond × ₹100)\n⚠️ Earlier displayed prize amount is not confirmed. Final pool will be calculated after registration closes.\nExample: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230\n\n📝 Registration OPEN hai.";
       } else if (/register|registration|form|join|participate|entry/i.test(q)) {
         faqReply = "📝 Registration\n\nBattleArena BGMI Dussehra Special ke liye registration free hai.\n\n👇 Menu me 📝 Register button dabayein.";
       } else if (/free fire|ff tournament|freefire/i.test(q)) {
