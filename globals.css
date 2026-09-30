@@ -85,3 +85,6 @@ footer p{margin:7px 0}
   .sponsorGrid{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.registerBtn{transition:none}}
+
+
+.prizePoolNotice{margin:0 0 20px;padding:14px;border:1px solid rgba(255,82,82,.3);border-radius:14px;background:linear-gradient(135deg,rgba(255,38,38,.10),rgba(10,14,23,.94));display:flex;flex-direction:column;gap:7px;text-align:center}.prizePoolNotice strong{color:#ffd21f;font-size:18px}.prizePoolNotice span{color:#d9e0ec;font-size:13px;font-weight:700}.prizePoolNotice small{color:#9fa8b8;font-size:11px;line-height:1.45}.prizePoolNotice small:nth-of-type(2){color:#ff8a8a;font-weight:700}@media(max-width:380px){.prizePoolNotice{padding:11px}.prizePoolNotice strong{font-size:16px}.prizePoolNotice span{font-size:12px}.prizePoolNotice small{font-size:10px}}
