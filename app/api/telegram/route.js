@@ -667,11 +667,7 @@ ${FORM_URL}`,
       if (/^(hi|hello|hey|hii|namaste|नमस्ते)/i.test(text)) {
         faqReply = "👋 Welcome to BattleArena!\n\n🎮 Free Fire & BGMI tournaments\n📝 Registration, results, rewards aur referrals ke liye neeche menu use karein.";
       } else if (/tournament|tourney|match|kab|date|time|when/i.test(q)) {
-        faqReply = "🏆 Upcoming Tournament\n\n🎮 BattleArena BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Prize Pool: Participant-Based
-🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 • 💎 Diamond ₹100 per participant
-📌 Final pool = (Bronze × ₹3) + (Silver × ₹5) + (Gold × ₹10) + (Diamond × ₹100)
-⚠️ Earlier displayed prize amount is not confirmed.
-Example: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230\n\n📝 Registration OPEN hai.";
+        faqReply = "🏆 Upcoming Tournament\n\n🎮 BattleArena BGMI — Dussehra Special\n📅 18 October 2026 (Sunday)\n⏰ 8:00 PM IST\n💰 Entry: FREE\n💰 Prize Pool: Participant-Based\n🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 • 💎 Diamond ₹100 per participant\n📌 Final pool = (Bronze × ₹3) + (Silver × ₹5) + (Gold × ₹10) + (Diamond × ₹100)\n⚠️ Earlier displayed prize amount is not confirmed.\nExample: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230\n\n📝 Registration OPEN hai.";
       } else if (/register|registration|form|join|participate|entry/i.test(q)) {
         faqReply = "📝 Registration\n\nBattleArena BGMI Dussehra Special ke liye registration free hai.\n\n👇 Menu me 📝 Register button dabayein.";
       } else if (/free fire|ff tournament|freefire/i.test(q)) {
@@ -683,7 +679,7 @@ Example: 10 Bronze + 20 Silver + 100 Gold + 1 Diamond = ₹1,230\n\n📝 Registr
       } else if (/rule|rules|cheat|hack|fair play|ban/i.test(q)) {
         faqReply = "📜 Rules\n\nFair play only. Hacks/cheats allowed nahi hain. Correct UID dena aur tournament instructions follow karna zaroori hai.";
       } else if (/reward|prize|winner|1st|2nd|3rd|champion/i.test(q)) {
-        faqReply = "🎁 Rewards\n\n💰 Prize Pool: Participant-Based\n🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 • 💎 Diamond ₹100 per participant\n📌 Final pool is calculated from verified participants after registration closes.\n🥇 1st — ₹3,000 + Champion Title + Badge\n🥈 2nd — ₹1,500 + Runner-Up Badge\n🥉 3rd — ₹500 + 3rd Place Badge\n\n🏆 Full ₹5,000 prize pool distributed.";
+        faqReply = "🎁 Rewards\n\n💰 Prize Pool: Participant-Based\n🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 • 💎 Diamond ₹100 per participant\n📌 Final pool is calculated from verified participants after registration closes.\n📌 Final 1st/2nd/3rd prize distribution will be announced after registration closes.";
       } else if (/refer|referral|invite|friend|bronze|silver|gold|diamond/i.test(q)) {
         faqReply = "🎁 Refer & Earn\n\nReferral optional hai. Referred player registration/verification complete karega tab referral count hoga.\n\nReferral link ke liye 🎁 Refer & Earn button use karein.";
       } else if (/history|past tournament|previous tournament|winner history/i.test(q)) {
