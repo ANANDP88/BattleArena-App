@@ -9,7 +9,7 @@ const tournaments = [
     title: "BattleArena BGMI — Dussehra Special",
     mode: "Squad",
     entry: "FREE",
-    prize: "₹5,000",
+    prize: "Participant-Based",
     status: "Registration OPEN",
     open: true,
   },
@@ -164,11 +164,17 @@ export default function Home() {
 
               <h3>{tournament.title}</h3>
 
-              <div className="prizeBreakdown">
-                <div><span>🥇 1st</span><strong>{tournament.game === "BGMI" ? "₹3,000" : "XXX"}</strong></div>
-                <div><span>🥈 2nd</span><strong>{tournament.game === "BGMI" ? "₹1,500" : "XXX"}</strong></div>
-                <div><span>🥉 3rd</span><strong>{tournament.game === "BGMI" ? "₹500" : "XXX"}</strong></div>
-              </div>
+              {tournament.game === "BGMI" ? (
+                <div className="prizePoolNotice">
+                  <strong>💰 Prize Pool: Participant-Based</strong>
+                  <span>🥉 Bronze ₹3 • 🥈 Silver ₹5 • 🥇 Gold ₹10 per participant</span>
+                  <small>Final prize pool = Bronze participants × ₹3 + Silver participants × ₹5 + Gold participants × ₹10.</small>
+                  <small>⚠️ Earlier displayed prize amount is not confirmed. Final pool will be calculated after registration closes.</small>
+                  <small>Example: 10 Bronze + 20 Silver + 100 Gold = ₹1,130 prize pool.</small>
+                </div>
+              ) : (
+                <div className="prizePoolNotice"><strong>💰 Prize: XXX</strong></div>
+              )}
 
               <div className="info">
                 <div>
