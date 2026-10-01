@@ -120,7 +120,7 @@ const adminKeyboard = {
     ["🏆 Leaderboard", "🎁 Rewards"],
     ["📚 Tournament History", "📊 My Stats"],
     ["🎁 Refer & Earn", "👕 Merchandise"],
-    ["📢 Broadcast"],
+    ["📢 Broadcast", "👥 Bot Users"],
     ["📜 Rules", "❓ Help"],
   ],
   resize_keyboard: true,
@@ -150,15 +150,13 @@ export async function POST(req) {
         ? startPayload.slice(4)
         : "";
 
-      if (username) {
-        try {
-          await verificationRequest("saveUser", "", {
-            username,
-            chatId: String(chatId),
-          });
-        } catch (saveError) {
-          console.error("SAVE USER ERROR:", saveError);
-        }
+      try {
+        await verificationRequest("saveUser", "", {
+          username: username || "Telegram User",
+          chatId: String(chatId),
+        });
+      } catch (saveError) {
+        console.error("SAVE USER ERROR:", saveError);
       }
 
       if (referrerChatId) {
@@ -336,6 +334,35 @@ ${FORM_URL}`,
       }
     } else if (text === "⬅️ Main Menu") {
       await sendMessage(chatId, "👇 Main menu", keyboard);
+    } else if (text === "👥 Bot Users") {
+      if (!ADMIN_IDS.includes(String(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        try {
+          const usersRaw = await verificationRequest("getUsers", "");
+          const users = usersRaw
+            .split(/\r?\n/)
+            .map((id) => id.trim())
+            .filter((id) => /^-?\d+$/.test(id));
+
+          await sendMessage(
+            chatId,
+            "👥 BattleArena Bot Users\n\n" +
+              "📊 Total bot users: " +
+              users.length +
+              "\n\n📢 Broadcast messages isi user list par bheje jaate hain.",
+            keyboard
+          );
+        } catch (error) {
+          console.error("BOT USERS COUNT ERROR:", error);
+          await sendMessage(
+            chatId,
+            "⚠️ Bot users count fetch nahi ho saka.\n\n" +
+              (error?.message || "Unknown error"),
+            keyboard
+          );
+        }
+      }
     } else if (text === "📢 Broadcast") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
