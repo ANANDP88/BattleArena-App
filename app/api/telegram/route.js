@@ -437,7 +437,7 @@ ${FORM_URL}`,
                 await sendMessage(
                   userId,
                   "📢 BattleArena Announcement\n\n" + broadcastText,
-                  keyboard
+                  userKeyboard
                 );
                 sent++;
               } catch (userError) {
