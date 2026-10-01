@@ -363,13 +363,40 @@ ${FORM_URL}`,
           );
         }
       }
+    } else if (text === "👥 Bot Users") {
+      if (!ADMIN_IDS.includes(String(chatId))) {
+        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
+      } else {
+        try {
+          const usersRaw = await verificationRequest("getUsers", "");
+          const users = usersRaw
+            .split(/\r?\n/)
+            .map((id) => id.trim())
+            .filter((id) => /^-?\d+$/.test(id));
+
+          await sendMessage(
+            chatId,
+            "👥 BattleArena Bot Users\n\n📊 Total registered bot users: " +
+              users.length +
+              "\n\n📢 Broadcast isi user list ko bheja jayega.",
+            keyboard
+          );
+        } catch (error) {
+          await sendMessage(
+            chatId,
+            "⚠️ User count fetch failed.\n\n" +
+              (error?.message || "Unknown error"),
+            keyboard
+          );
+        }
+      }
     } else if (text === "📢 Broadcast") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         await sendMessage(
           chatId,
-          "📢 Broadcast Panel\n\nUsage:\n/broadcast Your message here\n\nThis sends the announcement to the BattleArena Telegram channel.",
+          "📢 Broadcast Panel\n\nUsage:\n/broadcast Your message here\n\n👥 Bot users ka current count dekhne ke liye 👥 Bot Users dabayein.\n📣 Broadcast channel + registered bot users dono ko bheja jayega.",
           keyboard
         );
       }
@@ -384,7 +411,7 @@ ${FORM_URL}`,
         if (!broadcastText) {
           await sendMessage(
             chatId,
-            "📢 Broadcast Panel\n\nUsage:\n/broadcast Your message here",
+            "📢 Broadcast Panel\n\nUsage:\n/broadcast Your message here\n\n📣 Message BattleArena channel + registered bot users ko bheja jayega.",
             keyboard
           );
         } else {
