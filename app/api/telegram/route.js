@@ -103,7 +103,18 @@ async function verificationRequest(action, uid, extra = {}) {
   }
 }
 
-const keyboard = {
+const userKeyboard = {
+  keyboard: [
+    ["🎮 Tournaments", "📝 Register"],
+    ["🏆 Leaderboard", "🎁 Rewards"],
+    ["📚 Tournament History", "📊 My Stats"],
+    ["🎁 Refer & Earn", "👕 Merchandise"],
+    ["📜 Rules", "❓ Help"],
+  ],
+  resize_keyboard: true,
+};
+
+const adminKeyboard = {
   keyboard: [
     ["🎮 Tournaments", "📝 Register"],
     ["🏆 Leaderboard", "🎁 Rewards"],
@@ -127,6 +138,10 @@ export async function POST(req) {
     if (!chatId) {
       return Response.json({ ok: true });
     }
+
+    const keyboard = ADMIN_IDS.includes(String(chatId))
+      ? adminKeyboard
+      : userKeyboard;
 
     if (text.startsWith("/start")) {
       const username = message?.from?.username || "";
