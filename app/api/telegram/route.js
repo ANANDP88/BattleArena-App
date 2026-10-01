@@ -14,28 +14,67 @@ const ADMIN_IDS = (process.env.ADMIN_TELEGRAM_IDS || "8883673969,6703996214")
   .filter(Boolean);
 
 async function sendMessage(chatId, text, keyboard) {
-  const response = await fetch(
-    `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-        reply_markup: keyboard,
-      }),
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const response = await fetch(
+      `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text,
+          reply_markup: keyboard,
+        }),
+      }
+    );
+
+    const data = await response.json().catch(() => null);
+
+    if (response.ok && data?.ok) return data;
+
+    const retryAfter = Number(data?.parameters?.retry_after || 0);
+    if (response.status === 429 && retryAfter > 0 && attempt < 3) {
+      await new Promise((resolve) => setTimeout(resolve, retryAfter * 1000));
+      continue;
     }
-  );
 
-  const data = await response.json().catch(() => null);
-
-  if (!response.ok || !data?.ok) {
     throw new Error(
       `Telegram sendMessage failed: ${data?.description || `HTTP ${response.status}`}`
     );
   }
+}
 
-  return data;
+function parseUserIds(raw) {
+  const value = String(raw || "").trim();
+  if (!value) return [];
+
+  try {
+    const parsed = JSON.parse(value);
+    const list = Array.isArray(parsed)
+      ? parsed
+      : Array.isArray(parsed?.users)
+        ? parsed.users
+        : [];
+    if (list.length) {
+      return [...new Set(
+        list
+          .map((item) => typeof item === "object" ? (item.chatId || item.chat_id || item.id) : item)
+          .map((id) => String(id || "").trim())
+          .filter((id) => /^-?\\d+$/.test(id))
+      )];
+    }
+  } catch {}
+
+  return [...new Set(
+    value
+      .split(/[,\\r\\n]+/)
+      .map((id) => id.trim())
+      .filter((id) => /^-?\\d+$/.test(id))
+  )];
+}
+
+async function getBotUsers() {
+  return parseUserIds(await verificationRequest("getUsers", ""));
 }
 
 async function getPlayerChatId(uid) {
@@ -334,57 +373,24 @@ ${FORM_URL}`,
       }
     } else if (text === "⬅️ Main Menu") {
       await sendMessage(chatId, "👇 Main menu", keyboard);
-    } else if (text === "👥 Bot Users") {
+    } else if (text === "👥 Bot Users" || command === "/users") {
       if (!ADMIN_IDS.includes(String(chatId))) {
         await sendMessage(chatId, "⛔ Admin access required.", keyboard);
       } else {
         try {
-          const usersRaw = await verificationRequest("getUsers", "");
-          const users = usersRaw
-            .split(/\r?\n/)
-            .map((id) => id.trim())
-            .filter((id) => /^-?\d+$/.test(id));
-
+          const users = await getBotUsers();
           await sendMessage(
             chatId,
             "👥 BattleArena Bot Users\n\n" +
-              "📊 Total bot users: " +
-              users.length +
-              "\n\n📢 Broadcast messages isi user list par bheje jaate hain.",
+              "📊 Total bot users: " + users.length +
+              "\n\n📢 Broadcast isi user list ko bhejega.",
             keyboard
           );
         } catch (error) {
           console.error("BOT USERS COUNT ERROR:", error);
           await sendMessage(
             chatId,
-            "⚠️ Bot users count fetch nahi ho saka.\n\n" +
-              (error?.message || "Unknown error"),
-            keyboard
-          );
-        }
-      }
-    } else if (text === "👥 Bot Users") {
-      if (!ADMIN_IDS.includes(String(chatId))) {
-        await sendMessage(chatId, "⛔ Admin access required.", keyboard);
-      } else {
-        try {
-          const usersRaw = await verificationRequest("getUsers", "");
-          const users = usersRaw
-            .split(/\r?\n/)
-            .map((id) => id.trim())
-            .filter((id) => /^-?\d+$/.test(id));
-
-          await sendMessage(
-            chatId,
-            "👥 BattleArena Bot Users\n\n📊 Total registered bot users: " +
-              users.length +
-              "\n\n📢 Broadcast isi user list ko bheja jayega.",
-            keyboard
-          );
-        } catch (error) {
-          await sendMessage(
-            chatId,
-            "⚠️ User count fetch failed.\n\n" +
+            "⚠️ User count fetch nahi ho saka.\n\n" +
               (error?.message || "Unknown error"),
             keyboard
           );
@@ -423,11 +429,7 @@ ${FORM_URL}`,
             );
 
             // Bot-started users are stored by the Apps Script saveUser action.
-            const usersRaw = await verificationRequest("getUsers", "");
-            const users = usersRaw
-              .split(/\r?\n/)
-              .map((id) => id.trim())
-              .filter((id) => /^-?\d+$/.test(id));
+            const users = await getBotUsers();
 
             let sent = 0;
             let failed = 0;
